@@ -1,0 +1,26 @@
+.button__submit {
+  background: #000000;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #fff;
+  width: 238px;
+  min-height: 46px;
+  display: block;
+  margin: 15px auto 0;
+}
+
+.button__submit:hover {
+  background: #000000;
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 1279px) {
+  .button__submit {
+    width: 358px;
+  }
+}

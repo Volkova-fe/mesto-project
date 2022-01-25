@@ -1,0 +1,29 @@
+.button__add {
+  background-image: url(../../../../images/add_button.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  min-height: 50px;
+  padding: 0;
+  margin: 36px auto 0;
+  background-color: #000;
+  border: none;
+  display: inline-block;
+}
+
+.button__add:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 767px) {
+  .button__add {
+    grid-column: 3/4;
+    grid-row: 1/3;
+    background-image: url(../../../../images//add_button_1280.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 150px;
+    margin: 0;
+    justify-self: end;
+  }
+}

@@ -1,0 +1,25 @@
+.cards__container {
+  margin: 36px auto 48px;
+  display: grid;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  grid-template-columns: 282px;
+}
+
+@media screen and (min-width: 450px) {
+  .cards__container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .cards__container {
+  }
+}
+
+@media screen and (min-width: 1279px) {
+  .cards__container {
+    margin: 50px auto 66px;
+  }
+}

@@ -1,0 +1,12 @@
+.edit__line {
+  opacity: 0.2;
+  border: 1px solid #000000;
+  margin: 13px auto 30px;
+  min-width: 238px;
+}
+
+@media screen and (min-width: 1279px) {
+  .edit__line {
+    width: 358px;
+  }
+}
