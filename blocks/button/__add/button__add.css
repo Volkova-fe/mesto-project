@@ -1,5 +1,5 @@
 .button__add {
-  background-image: url(../../../../images/add_button.svg);
+  background-image: url(../../../images/add_button.svg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -19,7 +19,7 @@
   .button__add {
     grid-column: 3/4;
     grid-row: 1/3;
-    background-image: url(../../../../images//add_button_1280.svg);
+    background-image: url(../../../images//add_button_1280.svg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 150px;
