@@ -1,15 +1,13 @@
 .edit__form {
-  background: #fff;
   z-index: 12;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-right: 1px solid #000;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 10px 10px;
+  -webkit-border-radius: 0 0 10px 10px;
+  -moz-border-radius: 0 0 10px 10px;
   margin: 0 auto;
   display: grid;
-  padding-bottom: 25px;
+  padding-bottom: 37px;
   max-width: 282px;
+  background: #fff;
 }
 
 @media screen and (min-width: 1279px) {

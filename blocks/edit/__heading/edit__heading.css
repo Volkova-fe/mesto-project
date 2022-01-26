@@ -5,14 +5,19 @@
   color: #000;
   text-align: center;
   margin: 0 auto;
-  padding: 25px 0 0;
-  max-width: 238px;
+  padding: 25px 22px 0;
+  width: 238px;
+  background: #fff;
+  border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
 }
 
 @media screen and (min-width: 1279px) {
   .edit__heading {
     font-size: 24px;
     line-height: 29px;
-    max-width: 330px;
+    width: 430px;
+    padding: 35px 0 0;
   }
 }

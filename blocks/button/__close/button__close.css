@@ -18,5 +18,7 @@
 @media screen and (min-width: 1279px) {
   .button__close {
     margin: 0 0 0 453px;
+    width: 32px;
+    height: 32px;
   }
 }
