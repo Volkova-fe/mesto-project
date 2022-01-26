@@ -3,11 +3,12 @@
   font-weight: 500;
   font-size: 27px;
   line-height: 33px;
-  min-width: 189px;
+  min-width: 217px;
   grid-column: 1/2;
   grid-row: 2/3;
   display: grid;
-  grid-template-columns: 1fr 18px;
+  grid-template-columns: 217px 18px;
+  text-align: right;
   column-gap: 10px;
   align-items: center;
 }
@@ -18,13 +19,16 @@
     grid-row: 1/2;
     align-self: flex-end;
     justify-self: flex-start;
+    text-align: left;
+
   }
 }
 
 @media screen and (min-width: 1279px) {
   .profile__title {
-    min-width: 336px;
+    max-width: 336px;
     font-size: 42px;
     line-height: 48px;
+    grid-template-columns: 302px 18px;
   }
 }

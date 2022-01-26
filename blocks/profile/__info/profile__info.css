@@ -1,10 +1,10 @@
 .profile__info {
   display: grid;
   justify-items: center;
-  grid-template-rows: 188px 54px 14px;
-  align-items: center;
+  grid-template-rows: 142px 73px 27px;
   margin: 0 auto;
-  max-width: 320px;
+  max-width: 282px;
+  align-items: end;
 }
 
 @media screen and (min-width: 767px) {
