@@ -3,21 +3,20 @@
   font-size: 18px;
   line-height: 22px;
   color: #000;
-  text-align: center;
-  margin: 0 auto;
-  padding: 25px 22px 0;
-  width: 238px;
-  background: #fff;
-  border-radius: 10px 10px 0 0;
-  -webkit-border-radius: 10px 10px 0 0;
-  -moz-border-radius: 10px 10px 0 0;
+  margin: 0 0 0 22px;
+  padding: 25px 0 0;
+  min-width: 238px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
 }
 
 @media screen and (min-width: 1279px) {
   .edit__heading {
     font-size: 24px;
     line-height: 29px;
-    width: 430px;
+    min-width: 330px;
     padding: 35px 0 0;
+    margin-left: 36px;
   }
 }
