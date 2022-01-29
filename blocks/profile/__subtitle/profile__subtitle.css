@@ -6,14 +6,22 @@
   font-weight: 400;
   grid-column: 1/2;
   grid-row: 3/4;
+  text-align: center;
+  margin-left: 34px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 189px;
 }
 
 @media screen and (min-width: 767px) {
   .profile__subtitle {
     grid-column: 2/3;
     grid-row: 2/3;
-    align-self: flex-start;
     padding-top: 10px;
+    margin-left: 6px;
+    align-self: flex-start;
+    max-width: 217px;
   }
 }
 
@@ -21,5 +29,6 @@
   .profile__subtitle {
     font-size: 18px;
     line-height: 22px;
+    max-width: 294px;
   }
 }

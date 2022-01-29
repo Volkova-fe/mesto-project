@@ -3,8 +3,8 @@
   font-size: 18px;
   line-height: 22px;
   color: #000;
-  margin: 0 0 0 22px;
-  padding: 25px 0 0;
+  margin: 25px 0 75px 22px;
+  padding: 0;
   min-width: 238px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -16,7 +16,6 @@
     font-size: 24px;
     line-height: 29px;
     min-width: 330px;
-    padding: 35px 0 0;
-    margin-left: 36px;
+    margin: 35px 0 50px 36px;
   }
 }

@@ -6,6 +6,18 @@
   padding-bottom: 36px;
 }
 
+@media screen and (min-width: 768px) {
+  .footer__author {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .footer__author {
+    text-align: left;
+  }
+}
+
 @media screen and (min-width: 1279px) {
   .footer__author {
     font-size: 18px;

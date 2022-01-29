@@ -5,16 +5,12 @@
   list-style: none;
   padding: 0;
   grid-template-columns: 282px;
+  justify-content: center;
 }
 
 @media screen and (min-width: 450px) {
   .cards__container {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-}
-
-@media screen and (min-width: 800px) {
-  .cards__container {
   }
 }
 
