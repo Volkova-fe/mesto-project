@@ -4,11 +4,9 @@
   background-position: center;
   width: 282px;
   min-height: 50px;
-  padding: 0;
   margin: 0 auto;
   background-color: #000;
   border: 2px solid #fff;
-  cursor: pointer;
   grid-column: 1/2;
   grid-row: 4/5;
   transition: opacity 0.5s ease;
