@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8">
@@ -11,19 +11,16 @@
 
 <body class="body">
   <div class="page">
-    <div class="popup popup__opened">
-    </div>
-    <div class="popup__container popup__opened">
-      <button class="button__close"></button>
-      <form class="edit__form">
-        <h2 class="edit__heading">Редактировать профиль</h2>
-        <input class="edit__name" type="text" id="name" name="name" placeholder="Имя" value="Жак-Ив Кусто" required>
-        <div class="edit__line"></div>
-        <input class="edit__profession" type="text" id="profession" name="profession" placeholder="Профессия"
-          value="Исследователь океана" required>
-        <div class="edit__line"></div>
-        <input class="button__submit" type="submit" value="Сохранить" name="Submit">
-      </form>
+    <div class="popup popup_opened">
+      <div class="popup__container">
+        <button class="button__close" type="button" name="close"></button>
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <form class="popup__form" name="edit_profile">
+          <input class="popup__item" type="text" id="name" name="name" placeholder="Жак-Ив Кусто">
+          <input class="popup__item" type="text" id="profession" name="profession" placeholder="Исследователь океана">
+            <button class="button__submit" type="button" name="edit_save">Сохранить</button>
+        </form>
+      </div>
     </div>
     <header class="header">
       <img src="./images/logo.svg" alt="Логотип Master" class="header__logo">
@@ -32,7 +29,7 @@
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img src="./images/image.jpg" alt="" class="profile__avatar">
+          <img src="./images/image.jpg" alt="Аватар Пользователя" class="profile__avatar">
           <h1 class="profile__title">Жак-Ив Кусто<button class="button__edit"></button></h1>
           <p class="profile__subtitle">Исследователь океана</p>
           <button class="button__add"></button>

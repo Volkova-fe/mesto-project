@@ -13,6 +13,9 @@
   min-height: 46px;
   display: block;
   margin: 15px auto 0;
+  border-style: none;
+  cursor: pointer;
+  border: none;
 }
 
 .button__submit:hover {

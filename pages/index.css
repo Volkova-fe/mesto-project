@@ -23,12 +23,10 @@
 @import url("../blocks/footer/__author/footer__author.css");
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/__container/popup__container.css");
-@import url("../blocks/edit/__heading/edit__heading.css");
-@import url("../blocks/edit/__line/edit__line.css");
-@import url("../blocks/edit/__name/edit__name.css");
-@import url("../blocks/edit/__profession/edit__profession.css");
+@import url("../blocks/popup/__heading/popup__heading.css");
+@import url("../blocks/popup/__item/popup__item.css");
 @import url("../blocks/button/__submit/button__submit.css");
-@import url("../blocks/edit/__form/edit__form.css");
+@import url("../blocks/popup/__form/popup__form.css");
 @import url("../blocks/button/__close/button__close.css");
 @import url("../blocks/body/body.css");
-@import url("../blocks/popup/__opened/popup__opened.css");
+@import url("../blocks/popup/_opened/popup_opened.css");

@@ -5,7 +5,7 @@
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  z-index: 11;
+  z-index: 13;
   min-width: 282px;
   margin: 0 auto;
   border-radius: 10px;
@@ -13,6 +13,7 @@
   -moz-border-radius: 10px;
   border-right: 1px solid #000;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
 }
 
 @media screen and (min-width: 1279px) {

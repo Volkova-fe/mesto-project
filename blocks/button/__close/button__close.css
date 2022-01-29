@@ -3,12 +3,14 @@
   background-size: cover;
   width: 20px;
   height: 20px;
+  position: absolute;
+  right: 0;
+  top: -36px;
+  background-position: center;
+  background-color: #0000;
   border: none;
-  z-index: 13;
-  padding: 0;
-  margin: 0 auto 16px 265px;
-  background-color: rgba(0, 0, 0, 0);
-  display: block;
+  transition: linear .5s;
+  cursor: pointer;
 }
 
 .button__close:hover {
@@ -20,5 +22,7 @@
     margin: 0 0 0 453px;
     width: 32px;
     height: 32px;
+    right: -40px;
+    top: -40px;
   }
 }

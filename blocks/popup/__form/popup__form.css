@@ -1,4 +1,4 @@
-.edit__form {
+.popup__form {
   z-index: 12;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (min-width: 1279px) {
-  .edit__form {
+  .popup__form {
     min-width: 430px;
   }
 }
