@@ -1,5 +1,35 @@
 .card__button {
-  padding: 0 0 0 0;
+  background-image: url(../../../../images/like_button.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 22px;
+  height: 19px;
+  margin-right: 20px;
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0);
+  transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+  padding: 0;
   border-style: none;
   cursor: pointer;
+}
+
+.card__button:hover {
+  opacity: 0.5;
+}
+
+.card__button:active {
+  background-image: url(../../../../images/like_button-active.svg);
+  opacity: 1;
+}
+
+.card__button:focus:not(:active) {
+  background-image: url(../../../../images/like_button-active.svg);
+  opacity: 1;
+}
+
+@media screen and (min-width: 1279px) {
+  .card__button {
+    margin-right: 20px;
+  }
 }

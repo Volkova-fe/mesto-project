@@ -1,27 +1,19 @@
-.profile__button_edit {
-  background-image: url(../../../..//images/edit_button.svg);
-  background-repeat: no-repeat;
+.profile__button_type_edit {
+  background-image: url(../../../..//images//edit_button.svg);
   background-size: cover;
   width: 18px;
   height: 18px;
   box-sizing: border-box;
-  background-color: #000;
   grid-column: 2/3;
   grid-row: 2/3;
   align-self: flex-end;
   margin-bottom: 6px;
   justify-self: start;
   border: none;
-  transition: opacity 0.5s ease;
-  -webkit-transition: opacity 0.5s ease;
-}
-
-.profile__button_edit:hover {
-  opacity: 0.6;
 }
 
 @media screen and (min-width: 767px) {
-  .profile__button_edit {
+  .profile__button_type_edit {
     width: 24px;
     height: 24px;
     grid-column: 3/4;
@@ -31,7 +23,7 @@
 }
 
 @media screen and (min-width: 1279px) {
-  .profile__button_edit {
+  .profile__button_type_edit {
     margin-bottom: 10px;
   }
 }

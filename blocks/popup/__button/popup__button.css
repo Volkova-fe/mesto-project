@@ -1,4 +1,7 @@
 .popup__button {
   border: none;
   cursor: pointer;
+  transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+  background-color: #000000;
 }

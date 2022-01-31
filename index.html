@@ -11,14 +11,14 @@
 
 <body class="body">
   <div class="page">
-    <div class="popup popup__opened">
+    <div class="popup">
       <div class="popup__container">
-        <button class="popup__button popup__button_close" type="button"></button>
+        <button class="popup__button popup__button_type_close" type="button"></button>
         <h2 class="popup__heading">Редактировать профиль</h2>
         <form class="popup__form" name="edit_profile">
           <input class="popup__item" type="text" id="name" name="name" placeholder="Жак-Ив Кусто">
           <input class="popup__item" type="text" id="profession" name="profession" placeholder="Исследователь океана">
-          <button class="popup__button popup__button_save" type="button">Сохранить</button>
+          <button class="popup__button popup__button_type_save" type="button">Сохранить</button>
         </form>
       </div>
     </div>
@@ -27,13 +27,11 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__info">
-          <img src="./images/image.jpg" alt="Аватар Пользователя" class="profile__avatar">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__button profile__button_edit" type="button"></button>
-          <p class="profile__subtitle">Исследователь океана</p>
-          <button class="profile__button profile__button_add" type="button"></button>
-        </div>
+        <img src="./images/image.jpg" alt="Аватар Пользователя" class="profile__avatar">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <button class="profile__button profile__button_type_edit" type="button"></button>
+        <p class="profile__subtitle">Исследователь океана</p>
+        <button class="profile__button profile__button_type_add" type="button"></button>
       </section>
       <section class="cards">
         <ul class="cards__container">
@@ -41,35 +39,35 @@
             <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Карачаевский вид" class="card__pic">
             <div class="card__description">
               <h2 class="card__title">Карачаевск </h2>
-              <button class="card__button card__button_like" type="button"></button>
+              <button class="card__button" type="button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Эльбрус в закате" class="card__pic">
             <div class="card__description">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__button card__button_like" type="button"></button>
+              <button class="card__button" type="button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай" class="card__pic">
             <div class="card__description">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__button card__button_like" type="button"></button>
+              <button class="card__button" type="button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Эльбрус в тени" class="card__pic">
             <div class="card__description">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__button card__button_like" type="button"></button>
+              <button class="card__button" type="button"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Домбай под солнцем" class="card__pic">
             <div class="card__description">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__button card__button_like" type="button"></button>
+              <button class="card__button" type="button"></button>
             </div>
           </li>
           <li class="card">
@@ -77,7 +75,7 @@
               class="card__pic">
             <div class="card__description">
               <h2 class="card__title">Карачаево-Черкессия</h2>
-              <button class="card__button card__button_like" type="button"></button>
+              <button class="card__button" type="button"></button>
             </div>
           </li>
         </ul>
