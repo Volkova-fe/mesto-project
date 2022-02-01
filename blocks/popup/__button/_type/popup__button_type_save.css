@@ -12,6 +12,7 @@
   min-height: 46px;
   margin: 15px auto 0;
   border-style: none;
+  background-color: #000000;
 }
 
 .popup__button_type_save:hover {
