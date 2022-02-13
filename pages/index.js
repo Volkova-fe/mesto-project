@@ -1,10 +1,27 @@
 const content = document.querySelector('.content');
 const cardsContainer = content.querySelector('.cards__container');
 const addButton = content.querySelector('.profile__button_type_add');
+const modal = document.querySelector('.popup');
+const closeButton = document.querySelectorAll('.popup__button_type_close');
+const editButton = document.querySelector('.profile__button_type_edit');
 
 //1. Работа модальных окон
-
 //Открытие и закрытие модального окна
+function openModal(event) {
+  if (event.target.matches('.profile__button_type_edit')) {
+    modal.classList.add('popup_opened');
+  }
+  else if (event.target.matches('.profile__button_type_add')) {
+    modal.classList.add('popup_opened');
+  }
+  else if (event.target.matches('.popup .popup__button_type_close')) {
+    modal.classList.remove('popup_opened');
+  }
+  //добавить еще одно закрытие после создания модльного окна добавения карточек картинок
+}
+
+editButton.addEventListener('click', openModal);
+closeButton.forEach(btn => btn.addEventListener('click', openModal));
 //Поля формы
 //Редактирование имени и информации о себе
 
@@ -56,7 +73,7 @@ function addCard(linkValue, nameValue) {
 
   cardElement.querySelector('.card__button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__button_state_active');
-});
+  });
   cardsContainer.append(cardElement);
 }
 //6. Удаление карточки
