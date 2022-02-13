@@ -5,7 +5,8 @@ const modal = document.querySelector('.popup');
 const closeButton = document.querySelectorAll('.popup__button_type_close');
 const editButton = document.querySelector('.profile__button_type_edit');
 
-//1. Работа модальных окон
+//----------------------------------1. Работа модальных окон----------------------------------
+
 //Открытие и закрытие модального окна
 function openModal(event) {
   if (event.target.matches('.profile__button_type_edit')) {
@@ -22,10 +23,18 @@ function openModal(event) {
 
 editButton.addEventListener('click', openModal);
 closeButton.forEach(btn => btn.addEventListener('click', openModal));
-//Поля формы
-//Редактирование имени и информации о себе
 
-//2. Шесть карточек «из коробки»
+//----------------------------------Поля формы----------------------------------
+
+let nameProfile = document.getElementById('name').value = 'Жак-Ив Кусто' ;
+let profProfile = document.getElementById('about').value = 'Исследователь океана' ;
+
+//----------------------------------Редактирование имени и информации о себе----------------------------------
+
+
+
+//----------------------------------2. Шесть карточек «из коробки»----------------------------------
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -52,8 +61,12 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-//3. Форма добавления карточки
-//4. Добавление карточки
+//----------------------------------3. Форма добавления карточки----------------------------------
+
+
+
+//----------------------------------4. Добавление карточки----------------------------------
+
 addButton.addEventListener('click', function () {
   const link = document.querySelector('.card__pic');
   const name = document.querySelector('.card__title');
@@ -63,7 +76,9 @@ addButton.addEventListener('click', function () {
   link.value = '';
   name.value = '';
 });
-//5. Лайк карточки
+
+//----------------------------------5. Лайк карточки----------------------------------
+
 function addCard(linkValue, nameValue) {
   const cardsTemplate = document.querySelector('cards').content;
   const cardElement = cardsTemplate.querySelector('.card').cloneNode(true);
@@ -76,6 +91,13 @@ function addCard(linkValue, nameValue) {
   });
   cardsContainer.append(cardElement);
 }
-//6. Удаление карточки
-//7. Открытие попапа с картинкой
-//8. Плавное открытие и закрытие попапов
+
+//----------------------------------6. Удаление карточки----------------------------------
+
+
+
+//----------------------------------7. Открытие попапа с картинкой----------------------------------
+
+
+
+//----------------------------------8. Плавное открытие и закрытие попапов----------------------------------
