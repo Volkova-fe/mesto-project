@@ -1,9 +1,8 @@
 const content = document.querySelector('.content');
-const cardsContainer = content.querySelector('.cards__container');
-const addButton = content.querySelector('.profile__button_type_add');
 const modal = document.querySelector('.popup');
 const closeButton = document.querySelectorAll('.popup__button_type_close');
-const editButton = document.querySelector('.profile__button_type_edit');
+const editButton = content.querySelector('.profile__button_type_edit');
+const addButton = content.querySelector('.profile__button_type_add');
 
 //----------------------------------1. Работа модальных окон----------------------------------
 
@@ -26,12 +25,20 @@ closeButton.forEach(btn => btn.addEventListener('click', openModal));
 
 //----------------------------------Поля формы----------------------------------
 
-let nameProfile = document.getElementById('name').value = 'Жак-Ив Кусто' ;
-let profProfile = document.getElementById('about').value = 'Исследователь океана' ;
+const nameProfile = document.querySelector('#name')
+const profProfile = document.querySelector('#about')
 
 //----------------------------------Редактирование имени и информации о себе----------------------------------
+const formElement = document.querySelector('.popup__form');
 
-
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  const nameInput = document.querySelector('.profile__title');
+  const jobInput = document.querySelector('.profile__subtitle');
+  nameInput.textContent = nameProfile.value;
+  jobInput.textContent = profProfile.value;
+}
+formElement.addEventListener('submit', formSubmitHandler);
 
 //----------------------------------2. Шесть карточек «из коробки»----------------------------------
 
