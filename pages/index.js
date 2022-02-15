@@ -4,17 +4,16 @@ const closeButton = document.querySelectorAll('.popup__button_type_close');
 const editButton = content.querySelector('.profile__button_type_edit');
 const addButton = content.querySelector('.profile__button_type_add');
 const modalCard = document.querySelector('.popup__card');
-const modalReset = document.querySelector('#edit_profile');
 
 //----------------------------------Поля формы----------------------------------
 const nameProfile = document.querySelector('#name');
 const profProfile = document.querySelector('#about');
 const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
+
+//----------------------------------1. Работа модальных окон----------------------------------
 const formElement = document.querySelector('.popup__form');
 const saveButton = document.querySelector('.popup__button_type_save');
-//----------------------------------1. Работа модальных окон----------------------------------
-
 //Открытие и закрытие модального окна
 function openModal(event) {
   if (event.target.matches('.profile__button_type_edit')) {

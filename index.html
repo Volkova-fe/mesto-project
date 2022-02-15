@@ -22,7 +22,7 @@
         <p class="profile__subtitle">Исследователь океана</p>
         <button class="profile__button profile__button_type_add" type="button"></button>
       </section>
-      <template class="cards">
+      <div class="cards">
         <ul class="cards__container">
           <li class="card">
             <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Карачаевский вид" class="card__pic">
@@ -68,7 +68,7 @@
             </div>
           </li>
         </ul>
-      </template>
+      </div>
     </main>
     <footer class="footer">
       <p class="footer__author">&copy;2022. Волкова Мария</p>
@@ -79,24 +79,33 @@
         <h2 class="popup__heading">Редактировать профиль</h2>
         <form class="popup__form" name="edit_profile">
           <input class="popup__item" type="text" id="name" name="name" placeholder="Имя" value="Жак-Ив Кусто">
-          <input class="popup__item" type="text" id="about" name="about" placeholder="О себе" value="Исследователь океана">
+          <input class="popup__item" type="text" id="about" name="about" placeholder="О себе"
+            value="Исследователь океана">
           <button class="popup__button popup__button_type_save" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
-  </div>
-  <div class="popup popup__card">
-    <div class="popup__container">
-      <button class="popup__button popup__button_type_close" type="button"></button>
-      <h2 class="popup__heading">Новое место</h2>
-      <form class="popup__form" name="add_pic">
-        <input class="popup__item" type="text" id="name" name="name" placeholder="Название">
-        <input class="popup__item" type="link" id="about" name="about" placeholder="Ссылка на картинку">
-        <button class="popup__button popup__button_type_save" type="submit">Создать</button>
-      </form>
+    <div class="popup popup__card">
+      <div class="popup__container">
+        <button class="popup__button popup__button_type_close" type="button"></button>
+        <h2 class="popup__heading">Новое место</h2>
+        <form class="popup__form" name="add_pic">
+          <input class="popup__item" type="text" id="name" name="name" placeholder="Название">
+          <input class="popup__item" type="link" id="about" name="about" placeholder="Ссылка на картинку">
+          <button class="popup__button popup__button_type_save" type="submit">Создать</button>
+        </form>
+      </div>
     </div>
+    <template id="cards__container">
+      <li class="card">
+        <img src="" alt="" class="card__pic">
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+          <button class="card__button" type="button"></button>
+        </div>
+      </li>
+    </template>
   </div>
-</div>
   <script src="./pages/index.js"></script>
 </body>
 
