@@ -50,7 +50,6 @@ saveButton.addEventListener('click', openModal);
 formElement.addEventListener('submit', formSubmitHandler);
 
 //----------------------------------2. Шесть карточек «из коробки»----------------------------------
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -78,6 +77,18 @@ const initialCards = [
   }
 ];
 
+const cardsContainer = content.querySelector('.cards__container');
+
+initialCards.forEach(function (name, link) {
+	const cardTemplate = document.querySelector('#cards__template').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+  cardElement.querySelector('.card__title').textContent = name;
+  cardElement.querySelector('.card__pic').setAttribute('scr', link);
+  cardElement.querySelector('.card__pic').setAttribute('alt', name);
+
+  cardsContainer.prepend(cardElement);
+});
 
 //----------------------------------3. Форма добавления карточки----------------------------------
 addButton.addEventListener('click', openModal);
@@ -88,18 +99,7 @@ addButton.addEventListener('click', openModal);
 
 //----------------------------------5. Лайк карточки----------------------------------
 
-function addCard(linkValue, nameValue) {
-  const cardsTemplate = document.querySelector('cards').content;
-  const cardElement = cardsTemplate.querySelector('.card').cloneNode(true);
 
-  cardElement.querySelector('.card__pic').textContent = linkValue;
-  cardElement.querySelector('.card__title').textContent = nameValue;
-
-  cardElement.querySelector('.card__button').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__button_state_active');
-  });
-  cardsContainer.append(cardElement);
-}
 
 //----------------------------------6. Удаление карточки----------------------------------
 
