@@ -17,6 +17,9 @@ function openModal(event) {
   else if (event.target.matches('.popup .popup__button_type_close')) {
     modal.classList.remove('popup_opened');
   }
+  else if (event.target.matches('.popup .popup__button_type_save')) {
+    modal.classList.remove('popup_opened');
+  }
   //добавить еще одно закрытие после создания модльного окна добавения карточек картинок
 }
 
@@ -30,6 +33,7 @@ const profProfile = document.querySelector('#about')
 
 //----------------------------------Редактирование имени и информации о себе----------------------------------
 const formElement = document.querySelector('.popup__form');
+const saveButton = document.querySelector('.popup__button_type_save');
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
@@ -38,6 +42,7 @@ function formSubmitHandler(evt) {
   nameInput.textContent = nameProfile.value;
   jobInput.textContent = profProfile.value;
 }
+saveButton.addEventListener('click', openModal);
 formElement.addEventListener('submit', formSubmitHandler);
 
 //----------------------------------2. Шесть карточек «из коробки»----------------------------------
@@ -68,6 +73,8 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+
 //----------------------------------3. Форма добавления карточки----------------------------------
 
 
