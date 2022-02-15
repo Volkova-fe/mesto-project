@@ -1,7 +1,8 @@
 .card__pic {
-  max-width: 100%;
+  min-width: 100%;
   object-fit: cover;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  height: 100%;
 }

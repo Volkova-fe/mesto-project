@@ -79,13 +79,13 @@ const initialCards = [
 
 const cardsContainer = content.querySelector('.cards__container');
 
-initialCards.forEach(function (name, link) {
+initialCards.forEach(card => {
 	const cardTemplate = document.querySelector('#cards__template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
-  cardElement.querySelector('.card__title').textContent = name;
-  cardElement.querySelector('.card__pic').setAttribute('scr', link);
-  cardElement.querySelector('.card__pic').setAttribute('alt', name);
+  cardElement.querySelector('.card__title').textContent = card.name;
+  cardElement.querySelector('.card__pic').src = card.link;
+  cardElement.querySelector('.card__pic').alt = card.name;
 
   cardsContainer.prepend(cardElement);
 });
