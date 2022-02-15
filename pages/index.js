@@ -1,24 +1,25 @@
 const content = document.querySelector('.content');
-const modal = document.querySelector('.popup');
+const modalProfile = document.querySelector('.popup__profile');
 const closeButton = document.querySelectorAll('.popup__button_type_close');
 const editButton = content.querySelector('.profile__button_type_edit');
 const addButton = content.querySelector('.profile__button_type_add');
-
+const modalCard = document.querySelector('.popup__card');
 //----------------------------------1. Работа модальных окон----------------------------------
 
 //Открытие и закрытие модального окна
 function openModal(event) {
   if (event.target.matches('.profile__button_type_edit')) {
-    modal.classList.add('popup_opened');
+    modalProfile.classList.add('popup_opened');
   }
   else if (event.target.matches('.profile__button_type_add')) {
-    modal.classList.add('popup_opened');
+    modalCard.classList.add('popup_opened');
   }
   else if (event.target.matches('.popup .popup__button_type_close')) {
-    modal.classList.remove('popup_opened');
+    modalProfile.classList.remove('popup_opened');
+    modalCard.classList.remove('popup_opened');
   }
   else if (event.target.matches('.popup .popup__button_type_save')) {
-    modal.classList.remove('popup_opened');
+    modalProfile.classList.remove('popup_opened');
   }
   //добавить еще одно закрытие после создания модльного окна добавения карточек картинок
 }
@@ -76,20 +77,11 @@ const initialCards = [
 
 
 //----------------------------------3. Форма добавления карточки----------------------------------
-
+addButton.addEventListener('click', openModal);
 
 
 //----------------------------------4. Добавление карточки----------------------------------
 
-addButton.addEventListener('click', function () {
-  const link = document.querySelector('.card__pic');
-  const name = document.querySelector('.card__title');
-
-  addButton(link.value, name.value);
-
-  link.value = '';
-  name.value = '';
-});
 
 //----------------------------------5. Лайк карточки----------------------------------
 
