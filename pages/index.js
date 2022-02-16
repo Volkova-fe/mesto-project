@@ -5,15 +5,16 @@ const editButton = content.querySelector('.profile__button_type_edit');
 const addButton = content.querySelector('.profile__button_type_add');
 const modalCard = document.querySelector('.popup__card');
 
-//----------------------------------Поля формы----------------------------------
+//-------------------------------------------------------------------
 const nameProfile = document.querySelector('#name');
 const profProfile = document.querySelector('#about');
 const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
 
 //----------------------------------1. Работа модальных окон----------------------------------
-const formElement = document.querySelector('.popup__form');
-const saveButton = document.querySelector('.popup__button_type_save');
+const formElement = document.querySelector('#edit_profile');
+const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
+
 //Открытие и закрытие модального окна
 function openModal(event) {
   if (event.target.matches('.profile__button_type_edit')) {
@@ -22,14 +23,21 @@ function openModal(event) {
   else if (event.target.matches('.profile__button_type_add')) {
     modalCard.classList.add('popup_opened');
   }
-  else if (event.target.matches('.popup .popup__button_type_close')) {
+  else if (event.target.matches('.popup__profile .popup__button_type_close')) {
     modalProfile.classList.remove('popup_opened');
-    modalCard.classList.remove('popup_opened');
     nameProfile.value = nameInput.textContent;
     profProfile.value = jobInput.textContent;
   }
-  else if (event.target.matches('.popup .popup__button_type_save')) {
+
+  else if (event.target.matches('.popup__card .popup__button_type_close')) {
+    modalCard.classList.remove('popup_opened');
+  }
+  else if (event.target.matches('.popup__profile .popup__button_type_save')) {
     modalProfile.classList.remove('popup_opened');
+  }
+
+  else if (event.target.matches('.popup__card .popup__button_type_save')) {
+    modalCard.classList.remove('popup_opened');
   }
   //добавить еще одно закрытие после создания модльного окна добавения карточек картинок
 }
@@ -41,8 +49,6 @@ closeButton.forEach(btn => btn.addEventListener('click', openModal));
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  const nameInput = document.querySelector('.profile__title');
-  const jobInput = document.querySelector('.profile__subtitle');
   nameInput.textContent = nameProfile.value;
   jobInput.textContent = profProfile.value;
 }
@@ -78,9 +84,12 @@ const initialCards = [
 ];
 
 const cardsContainer = content.querySelector('.cards__container');
+const cardTemplate = document.querySelector('#cards__template').content;
+const createButton = document.querySelector('.popup__card .popup__button_type_save');
+
+addButton.addEventListener('click', openModal);
 
 initialCards.forEach(card => {
-	const cardTemplate = document.querySelector('#cards__template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   cardElement.querySelector('.card__title').textContent = card.name;
@@ -90,11 +99,29 @@ initialCards.forEach(card => {
   cardsContainer.prepend(cardElement);
 });
 
+function addCard(cardName, cardLink) {
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+  cardElement.querySelector('.card__title').textContent = cardName.name;
+  cardElement.querySelector('.card__pic').src = cardLink.link;
+  cardElement.querySelector('.card__pic').alt = cardName.name;
+
+  cardsContainer.prepend(cardElement);
+}
+
+createButton.addEventListener('click', function () {
+  const cardName = document.querySelector('#name_pic');
+  const cardLink = document.querySelector('#link_pic');
+
+  addCard(cardName.value, cardLink.value);
+  initialCards[addCard];
+});
+
 //----------------------------------3. Форма добавления карточки----------------------------------
-addButton.addEventListener('click', openModal);
 
 
-//----------------------------------4. Добавление карточки----------------------------------
+
+//----------------------------------4. Добавление карточки--------------------------------
 
 
 //----------------------------------5. Лайк карточки----------------------------------
