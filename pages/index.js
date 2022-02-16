@@ -14,6 +14,8 @@ const jobInput = document.querySelector('.profile__subtitle');
 //----------------------------------Работа модальных окон----------------------------------
 const formElement = document.querySelector('#edit_profile');
 const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
+const cardNameValue = document.querySelector('#name_pic');
+const cardLinkValue= document.querySelector('#link_pic');
 
 //Открытие и закрытие модального окна
 function openModal(event) {
@@ -40,15 +42,20 @@ function openModal(event) {
     modalCard.classList.remove('popup_opened');
   }
 
-  else if (event.target.matches('.popup__pic .card__pic')) {
+  else if (event.target.matches('.card__pic')) {
     modalPic.classList.add('popup_opened');
+  }
+
+  else if (event.target.matches('.popup__pic .popup__button_type_close')) {
+    modalPic.classList.remove('popup_opened');
+    cardNameValue.value = cardNameValue.ariaPlaceholder;
+    cardLinkValue.value = cardLinkValue.ariaPlaceholder;
   }
 
 }
 
 editButton.addEventListener('click', openModal);
 closeButton.forEach(btn => btn.addEventListener('click', openModal));
-modalPic.addEventListener('click', openModal);
 //----------------------------------Редактирование имени и информации о себе----------------------------------
 
 function formSubmitHandler(evt) {
@@ -117,14 +124,16 @@ function addCard(cardName, cardLink) {
 
   cardElement.querySelector('.card__pic').addEventListener('click', openModal);
 
-
   cardsContainer.prepend(cardElement);
+
+  cardNameValue.value = cardNameValue.ariaPlaceholder;
+  cardLinkValue.value = cardLinkValue.ariaPlaceholder;
 }
 
 createButton.addEventListener('click', function (evt) {
   evt.preventDefault();
-  const cardName = document.querySelector('#name_pic').value;
-  const cardLink = document.querySelector('#link_pic').value;
+  const cardName = cardNameValue.value;
+  const cardLink = cardLinkValue.value;
 
   addCard(cardName, cardLink);
 });
