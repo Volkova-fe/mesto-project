@@ -90,32 +90,27 @@ const createButton = document.querySelector('.popup__card .popup__button_type_sa
 addButton.addEventListener('click', openModal);
 
 initialCards.forEach(card => {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-
-  cardElement.querySelector('.card__title').textContent = card.name;
-  cardElement.querySelector('.card__pic').src = card.link;
-  cardElement.querySelector('.card__pic').alt = card.name;
-
-  cardsContainer.prepend(cardElement);
+  addCard(card.name, card.link);
 });
 
 function addCard(cardName, cardLink) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
-  cardElement.querySelector('.card__title').textContent = cardName.name;
-  cardElement.querySelector('.card__pic').src = cardLink.link;
-  cardElement.querySelector('.card__pic').alt = cardName.name;
+  cardElement.querySelector('.card__title').textContent = cardName;
+  cardElement.querySelector('.card__pic').src = cardLink;
+  cardElement.querySelector('.card__pic').alt = cardName;
 
   cardsContainer.prepend(cardElement);
 }
 
-createButton.addEventListener('click', function () {
-  const cardName = document.querySelector('#name_pic');
-  const cardLink = document.querySelector('#link_pic');
+createButton.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  const cardName = document.querySelector('#name_pic').value;
+  const cardLink = document.querySelector('#link_pic').value;
 
-  addCard(cardName.value, cardLink.value);
-  initialCards[addCard];
+  addCard(cardName, cardLink);
 });
+
 
 //----------------------------------3. Форма добавления карточки----------------------------------
 
