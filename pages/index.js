@@ -23,21 +23,21 @@ function openModal(event) {
   else if (event.target.matches('.profile__button_type_add')) {
     modalCard.classList.add('popup_opened');
   }
-  else if (event.target.matches('.popup__button_type_close')) {
+  else if (event.target.matches('.popup__profile .popup__button_type_close')) {
     modalProfile.classList.remove('popup_opened');
     nameProfile.value = nameInput.textContent;
     profProfile.value = jobInput.textContent;
   }
 
-  else if (event.target.matches('.popup__button_type_close')) {
+  else if (event.target.matches('.popup__card .popup__button_type_close')) {
     document.getElementById('add_card').reset();
     modalCard.classList.remove('popup_opened');
   }
-  else if (event.target.matches('.popup__button_type_save')) {
+  else if (event.target.matches('.popup__profile .popup__button_type_save')) {
     modalProfile.classList.remove('popup_opened');
   }
 
-  else if (event.target.matches('.popup__button_type_save')) {
+  else if (event.target.matches('.popup__card .popup__button_type_save')) {
     modalCard.classList.remove('popup_opened');
   }
 
@@ -45,7 +45,7 @@ function openModal(event) {
     modalPic.classList.add('popup_opened');
   }
 
-  else if (event.target.matches('.popup__button_type_close')) {
+  else if (event.target.matches('.popup__pic .popup__button_type_close')) {
     modalPic.classList.remove('popup_opened');
   }
 
@@ -106,7 +106,7 @@ initialCards.forEach(card => {
 
 const popupItem = document.querySelector('.popup__pic');
 
-function showCard (popupName, popupLink) {
+function showCard(popupName, popupLink) {
   popupItem.querySelector('.popup__title').textContent = popupName;
   popupItem.querySelector('.popup__image').src = popupLink;
   popupItem.querySelector('.popup__image').alt = popupName;
@@ -123,16 +123,16 @@ function addCard(cardName, cardLink) {
     evt.target.classList.toggle('card__button_state_active'); // лайк карточки
   });
 
-  cardElement.querySelector('.card__pic').addEventListener('click', openModal)
+  cardElement.querySelector('.card__pic').addEventListener('click', (evt) => {
+    showCard(cardName, cardLink);
+    openModal(evt);
+  });
 
   cardElement.querySelector('.card__remove').addEventListener('click', function () {
     const cards = document.querySelector('.card')
     cards.remove(); //Удаление карточки
   });
 
-  cardElement.querySelector('.card__pic').addEventListener('click', () => {
-
-  });
 
   cardsContainer.prepend(cardElement);
 }
