@@ -11,7 +11,7 @@ const profProfile = document.querySelector('#about');
 const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
 
-//----------------------------------1. Работа модальных окон----------------------------------
+//----------------------------------Работа модальных окон----------------------------------
 const formElement = document.querySelector('#edit_profile');
 const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
 
@@ -39,7 +39,7 @@ function openModal(event) {
   else if (event.target.matches('.popup__card .popup__button_type_save')) {
     modalCard.classList.remove('popup_opened');
   }
-  //добавить еще одно закрытие после создания модльного окна добавения карточек картинок
+
 }
 
 editButton.addEventListener('click', openModal);
@@ -55,7 +55,7 @@ function formSubmitHandler(evt) {
 saveButton.addEventListener('click', openModal);
 formElement.addEventListener('submit', formSubmitHandler);
 
-//----------------------------------2. Шесть карточек «из коробки»----------------------------------
+//---------------------------------- Шесть карточек «из коробки»----------------------------------
 const initialCards = [
   {
     name: 'Архыз',
@@ -83,6 +83,7 @@ const initialCards = [
   }
 ];
 
+//---------------------------------- Добавление карточки--------------------------------
 const cardsContainer = content.querySelector('.cards__container');
 const cardTemplate = document.querySelector('#cards__template').content;
 const createButton = document.querySelector('.popup__card .popup__button_type_save');
@@ -91,6 +92,7 @@ addButton.addEventListener('click', openModal);
 
 initialCards.forEach(card => {
   addCard(card.name, card.link);
+
 });
 
 function addCard(cardName, cardLink) {
@@ -99,6 +101,10 @@ function addCard(cardName, cardLink) {
   cardElement.querySelector('.card__title').textContent = cardName;
   cardElement.querySelector('.card__pic').src = cardLink;
   cardElement.querySelector('.card__pic').alt = cardName;
+
+  cardElement.querySelector('.card__button').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('card__button_state_active'); // лайк карточки
+});
 
   cardsContainer.prepend(cardElement);
 }
@@ -111,15 +117,6 @@ createButton.addEventListener('click', function (evt) {
   addCard(cardName, cardLink);
 });
 
-
-//----------------------------------3. Форма добавления карточки----------------------------------
-
-
-
-//----------------------------------4. Добавление карточки--------------------------------
-
-
-//----------------------------------5. Лайк карточки----------------------------------
 
 
 
