@@ -4,7 +4,7 @@ const closeButton = document.querySelectorAll('.popup__button_type_close');
 const editButton = content.querySelector('.profile__button_type_edit');
 const addButton = content.querySelector('.profile__button_type_add');
 const modalCard = document.querySelector('.popup__card');
-
+const modalPic = document.querySelector('.popup__pic');
 //-------------------------------------------------------------------
 const nameProfile = document.querySelector('#name');
 const profProfile = document.querySelector('#about');
@@ -40,11 +40,15 @@ function openModal(event) {
     modalCard.classList.remove('popup_opened');
   }
 
+  else if (event.target.matches('.popup__pic .card__pic')) {
+    modalPic.classList.add('popup_opened');
+  }
+
 }
 
 editButton.addEventListener('click', openModal);
 closeButton.forEach(btn => btn.addEventListener('click', openModal));
-
+modalPic.addEventListener('click', openModal);
 //----------------------------------Редактирование имени и информации о себе----------------------------------
 
 function formSubmitHandler(evt) {
@@ -111,6 +115,9 @@ function addCard(cardName, cardLink) {
     cards.remove(); //Удаление карточки
   });
 
+  cardElement.querySelector('.card__pic').addEventListener('click', openModal);
+
+
   cardsContainer.prepend(cardElement);
 }
 
@@ -121,7 +128,6 @@ createButton.addEventListener('click', function (evt) {
 
   addCard(cardName, cardLink);
 });
-
 //----------------------------------7. Открытие попапа с картинкой----------------------------------
 
 
