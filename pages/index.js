@@ -14,8 +14,6 @@ const jobInput = document.querySelector('.profile__subtitle');
 //----------------------------------Работа модальных окон----------------------------------
 const formElement = document.querySelector('#edit_profile');
 const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
-const cardNameValue = document.querySelector('#name_pic');
-const cardLinkValue= document.querySelector('#link_pic');
 
 //Открытие и закрытие модального окна
 function openModal(event) {
@@ -31,14 +29,15 @@ function openModal(event) {
     profProfile.value = jobInput.textContent;
   }
 
-  else if (event.target.matches('.popup__card .popup__button_type_close')) {
+  else if (event.target.matches('.popup__button_type_close')) {
+    document.getElementById('add_card').reset();
     modalCard.classList.remove('popup_opened');
   }
   else if (event.target.matches('.popup__profile .popup__button_type_save')) {
     modalProfile.classList.remove('popup_opened');
   }
 
-  else if (event.target.matches('.popup__card .popup__button_type_save')) {
+  else if (event.target.matches('.popup__button_type_save')) {
     modalCard.classList.remove('popup_opened');
   }
 
@@ -48,8 +47,6 @@ function openModal(event) {
 
   else if (event.target.matches('.popup__pic .popup__button_type_close')) {
     modalPic.classList.remove('popup_opened');
-    cardNameValue.value = cardNameValue.ariaPlaceholder;
-    cardLinkValue.value = cardLinkValue.ariaPlaceholder;
   }
 
 }
@@ -102,9 +99,18 @@ const removeButton = content.querySelector('.card__remove');
 
 addButton.addEventListener('click', openModal);
 
+
 initialCards.forEach(card => {
   addCard(card.name, card.link);
 });
+
+const popupItem = document.querySelector('popup__pic-container');
+
+function showCard (popupName, popupLink) {
+  popupItem.document.querySelector('popup_title').textContent = popupName;
+  popupItem.document.querySelector('popup__image').src = popupLink;
+  popupItem.document.querySelector('popup__image').alt = popupName;
+}
 
 function addCard(cardName, cardLink) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -117,28 +123,34 @@ function addCard(cardName, cardLink) {
     evt.target.classList.toggle('card__button_state_active'); // лайк карточки
   });
 
+  cardElement.querySelector('.card__pic').addEventListener('click', openModal);
+  cardElement.querySelector('.card__pic').addEventListener('click', (cardName, cardLink) => {
+    showCard(cardName, cardLink);
+  });
+
   cardElement.querySelector('.card__remove').addEventListener('click', function () {
     const cards = document.querySelector('.card')
     cards.remove(); //Удаление карточки
   });
 
-  cardElement.querySelector('.card__pic').addEventListener('click', openModal);
+  cardElement.querySelector('.card__pic').addEventListener('click', () => {
+
+  });
 
   cardsContainer.prepend(cardElement);
-
-  cardNameValue.value = cardNameValue.ariaPlaceholder;
-  cardLinkValue.value = cardLinkValue.ariaPlaceholder;
 }
 
 createButton.addEventListener('click', function (evt) {
   evt.preventDefault();
-  const cardName = cardNameValue.value;
-  const cardLink = cardLinkValue.value;
+  const cardName = document.querySelector('#name_pic').value;
+  const cardLink = document.querySelector('#link_pic').value;
 
   addCard(cardName, cardLink);
+  document.getElementById('add_card').reset();
 });
-//----------------------------------7. Открытие попапа с картинкой----------------------------------
 
+
+//----------------------------------7. Открытие попапа с картинкой----------------------------------
 
 
 //----------------------------------8. Плавное открытие и закрытие попапов----------------------------------
