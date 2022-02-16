@@ -1,21 +1,22 @@
 const content = document.querySelector('.content');
 const modalProfile = document.querySelector('.popup__profile');
-const closeButton = document.querySelectorAll('.popup__button_type_close');
-const editButton = content.querySelector('.profile__button_type_edit');
-const addButton = content.querySelector('.profile__button_type_add');
 const modalCard = document.querySelector('.popup__card');
 const modalPic = document.querySelector('.popup__pic');
+const closeButton = document.querySelectorAll('.popup__button_type_close');
+const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
 //-------------------------------------------------------------------
+const formElement = document.querySelector('#edit_profile');
 const nameProfile = document.querySelector('#name');
 const profProfile = document.querySelector('#about');
 const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
+const editButton = content.querySelector('.profile__button_type_edit');
+const addButton = content.querySelector('.profile__button_type_add');
 
-//----------------------------------Работа модальных окон----------------------------------
-const formElement = document.querySelector('#edit_profile');
-const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
 
-//Открытие и закрытие модального окна
+
+//----------------------------------Открытие и закрытие модального окна----------------------------------
+
 function openModal(event) {
   if (event.target.matches('.profile__button_type_edit')) {
     modalProfile.classList.add('popup_opened');
@@ -53,6 +54,7 @@ function openModal(event) {
 
 editButton.addEventListener('click', openModal);
 closeButton.forEach(btn => btn.addEventListener('click', openModal));
+
 //----------------------------------Редактирование имени и информации о себе----------------------------------
 
 function formSubmitHandler(evt) {
@@ -88,23 +90,23 @@ const initialCards = [
   {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
+  },
 ];
 
 //---------------------------------- Добавление карточки--------------------------------
+
 const cardsContainer = content.querySelector('.cards__container');
 const cardTemplate = document.querySelector('#cards__template').content;
 const createButton = document.querySelector('.popup__card .popup__button_type_save');
 const removeButton = content.querySelector('.card__remove');
+const popupItem = document.querySelector('.popup__pic');
+
 
 addButton.addEventListener('click', openModal);
 
-
 initialCards.forEach(card => {
   addCard(card.name, card.link);
-});
-
-const popupItem = document.querySelector('.popup__pic');
+}); //добавляем шесть карточек на сайт
 
 function showCard(popupName, popupLink) {
   popupItem.querySelector('.popup__title').textContent = popupName;
@@ -124,15 +126,14 @@ function addCard(cardName, cardLink) {
   });
 
   cardElement.querySelector('.card__pic').addEventListener('click', (evt) => {
-    showCard(cardName, cardLink);
+    showCard(cardName, cardLink); //Открытие попапа с картинкой
     openModal(evt);
   });
 
   cardElement.querySelector('.card__remove').addEventListener('click', function () {
-    const cards = document.querySelector('.card')
+    const cards = document.querySelector('.card');
     cards.remove(); //Удаление карточки
   });
-
 
   cardsContainer.prepend(cardElement);
 }
@@ -147,7 +148,5 @@ createButton.addEventListener('click', function (evt) {
 });
 
 
-//----------------------------------7. Открытие попапа с картинкой----------------------------------
 
 
-//----------------------------------8. Плавное открытие и закрытие попапов----------------------------------

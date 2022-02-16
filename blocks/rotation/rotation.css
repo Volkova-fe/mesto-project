@@ -1,0 +1,15 @@
+@keyframes animate {
+  from {
+    top: -320px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.rotation {
+  animation-name: animate;
+  animation-duration: 0.7s;
+}
