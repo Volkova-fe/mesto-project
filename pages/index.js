@@ -87,12 +87,12 @@ const initialCards = [
 const cardsContainer = content.querySelector('.cards__container');
 const cardTemplate = document.querySelector('#cards__template').content;
 const createButton = document.querySelector('.popup__card .popup__button_type_save');
+const removeButton = content.querySelector('.card__remove');
 
 addButton.addEventListener('click', openModal);
 
 initialCards.forEach(card => {
   addCard(card.name, card.link);
-
 });
 
 function addCard(cardName, cardLink) {
@@ -104,7 +104,12 @@ function addCard(cardName, cardLink) {
 
   cardElement.querySelector('.card__button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__button_state_active'); // лайк карточки
-});
+  });
+
+  cardElement.querySelector('.card__remove').addEventListener('click', function () {
+    const cards = document.querySelector('.card')
+    cards.remove(); //Удаление карточки
+  });
 
   cardsContainer.prepend(cardElement);
 }
@@ -116,13 +121,6 @@ createButton.addEventListener('click', function (evt) {
 
   addCard(cardName, cardLink);
 });
-
-
-
-
-//----------------------------------6. Удаление карточки----------------------------------
-
-
 
 //----------------------------------7. Открытие попапа с картинкой----------------------------------
 
