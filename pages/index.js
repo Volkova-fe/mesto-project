@@ -12,58 +12,13 @@ const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
 const editButton = content.querySelector('.profile__button_type_edit');
 const addButton = content.querySelector('.profile__button_type_add');
-
-
-
-//----------------------------------Открытие и закрытие модального окна----------------------------------
-
-function openModal(event) {
-  if (event.target.matches('.profile__button_type_edit')) {
-    modalProfile.classList.add('popup_opened');
-  }
-  else if (event.target.matches('.profile__button_type_add')) {
-    modalCard.classList.add('popup_opened');
-  }
-  else if (event.target.matches('.popup__profile .popup__button_type_close')) {
-    modalProfile.classList.remove('popup_opened');
-    nameProfile.value = nameInput.textContent;
-    profProfile.value = jobInput.textContent;
-  }
-
-  else if (event.target.matches('.popup__card .popup__button_type_close')) {
-    document.getElementById('add_card').reset();
-    modalCard.classList.remove('popup_opened');
-  }
-  else if (event.target.matches('.popup__profile .popup__button_type_save')) {
-    modalProfile.classList.remove('popup_opened');
-  }
-
-  else if (event.target.matches('.popup__card .popup__button_type_save')) {
-    modalCard.classList.remove('popup_opened');
-  }
-
-  else if (event.target.matches('.card__pic')) {
-    modalPic.classList.add('popup_opened');
-  }
-
-  else if (event.target.matches('.popup__pic .popup__button_type_close')) {
-    modalPic.classList.remove('popup_opened');
-  }
-
-}
-
-editButton.addEventListener('click', openModal);
-closeButton.forEach(btn => btn.addEventListener('click', openModal));
-
-//----------------------------------Редактирование имени и информации о себе----------------------------------
-
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  nameInput.textContent = nameProfile.value;
-  jobInput.textContent = profProfile.value;
-}
-saveButton.addEventListener('click', openModal);
-formElement.addEventListener('submit', formSubmitHandler);
+const modal = document.querySelector('.popup');
+//-------------------------------------------------------------------
+const cardsContainer = content.querySelector('.cards__container');
+const cardTemplate = document.querySelector('#cards__template').content;
+const createButton = document.querySelector('.popup__card .popup__button_type_save');
+const removeButton = content.querySelector('.card__remove');
+const popupItem = document.querySelector('.popup__pic');
 
 //---------------------------------- Шесть карточек «из коробки»----------------------------------
 const initialCards = [
@@ -93,16 +48,27 @@ const initialCards = [
   },
 ];
 
+
+
+//----------------------------------Открытие и закрытие модального окна----------------------------------
+function openPopup(popup){
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+//----------------------------------Редактирование имени и информации о себе----------------------------------
+
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  nameInput.textContent = nameProfile.value;
+  jobInput.textContent = profProfile.value;
+}
+
 //---------------------------------- Добавление карточки--------------------------------
 
-const cardsContainer = content.querySelector('.cards__container');
-const cardTemplate = document.querySelector('#cards__template').content;
-const createButton = document.querySelector('.popup__card .popup__button_type_save');
-const removeButton = content.querySelector('.card__remove');
-const popupItem = document.querySelector('.popup__pic');
-
-
-addButton.addEventListener('click', openModal);
 
 initialCards.forEach(card => {
   addCard(card.name, card.link);
@@ -127,7 +93,7 @@ function addCard(cardName, cardLink) {
 
   cardElement.querySelector('.card__pic').addEventListener('click', (evt) => {
     showCard(cardName, cardLink); //Открытие попапа с картинкой
-    openModal(evt);
+    openPopup(evt);
   });
 
   cardElement.querySelector('.card__remove').addEventListener('click', function () {
@@ -138,15 +104,36 @@ function addCard(cardName, cardLink) {
   cardsContainer.prepend(cardElement);
 }
 
-createButton.addEventListener('click', function (evt) {
+function addNewCards (evt) {
   evt.preventDefault();
   const cardName = document.querySelector('#name_pic').value;
   const cardLink = document.querySelector('#link_pic').value;
 
   addCard(cardName, cardLink);
   document.getElementById('add_card').reset();
-});
+}
+
+//Вынесите отдельно функцию создания карточки:
+function createCard(name, link) {
+const element = .............. //создается DOM элемент карточки
+............. //в карточку вставляются данные и навешиваются обработчики
+return element; //возвращается созданная карточка
+}
+//И отдельно функцию добавления карточки в контейнер
+function addCard(container, cardElement) { .............. //cardElement добавляется в container }
+
+//Таким образом добавление будет выглядеть так:
+addCard(listElement, createCard(card.name, card.link) );
 
 
 
 
+createButton.addEventListener('submit',addNewCards);
+
+
+formElement.addEventListener('submit', formSubmitHandler);
+saveButton.addEventListener('click', ()  => closePopup(modalProfile));
+editButton.addEventListener('click', ()  => openPopup(modalProfile));
+closeButton.forEach(btn => btn.addEventListener('click', ()  => closePopup(modalProfile)));
+addButton.addEventListener('click',  ()  => openPopup(modalCard));
+closeButton.forEach(btn => btn.addEventListener('click', ()  => closePopup(modalCard)));
