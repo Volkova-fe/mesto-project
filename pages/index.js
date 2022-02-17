@@ -5,7 +5,7 @@ const modalPic = document.querySelector('.popup__pic');
 const closeButton = document.querySelectorAll('.popup__button_type_close');
 const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
 //-------------------------------------------------------------------
-const formElement = document.querySelector('#edit_profile');
+const profileform = document.getElementById('#edit_profile');
 const nameProfile = document.querySelector('#name');
 const profProfile = document.querySelector('#about');
 const nameInput = document.querySelector('.profile__title');
@@ -18,7 +18,8 @@ const cardsContainer = content.querySelector('.cards__container');
 const cardTemplate = document.querySelector('#cards__template').content;
 const createButton = document.querySelector('.popup__card .popup__button_type_save');
 const removeButton = content.querySelector('.card__remove');
-const popupItem = document.querySelector('.popup__pic');
+const cardImage = document.querySelector('.card__pic');
+const cardForm = document.getElementById('#add_card');
 
 //---------------------------------- Шесть карточек «из коробки»----------------------------------
 const initialCards = [
@@ -67,73 +68,73 @@ function formSubmitHandler(evt) {
   jobInput.textContent = profProfile.value;
 }
 
+function valueForm() {
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = profProfile.textContent;
+
+  function clearForm(idForm) {
+    idForm.reset();
+  }
+}
 //---------------------------------- Добавление карточки--------------------------------
 
-
-initialCards.forEach(card => {
-  addCard(card.name, card.link);
-}); //добавляем шесть карточек на сайт
-
-function showCard(popupName, popupLink) {
-  popupItem.querySelector('.popup__title').textContent = popupName;
-  popupItem.querySelector('.popup__image').src = popupLink;
-  popupItem.querySelector('.popup__image').alt = popupName;
-}
-
-function addCard(cardName, cardLink) {
+//Создание карточки
+function createCard(name, link) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
-  cardElement.querySelector('.card__title').textContent = cardName;
-  cardElement.querySelector('.card__pic').src = cardLink;
-  cardElement.querySelector('.card__pic').alt = cardName;
+  cardElement.querySelector('.card__title').textContent = name;
+  cardElement.querySelector('.card__pic').src = link;
+  cardElement.querySelector('.card__pic').alt = name;
 
   cardElement.querySelector('.card__button').addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__button_state_active'); // лайк карточки
   });
 
-  cardElement.querySelector('.card__pic').addEventListener('click', (evt) => {
-    showCard(cardName, cardLink); //Открытие попапа с картинкой
-    openPopup(evt);
-  });
-
-  cardElement.querySelector('.card__remove').addEventListener('click', function () {
+    cardElement.querySelector('.card__remove').addEventListener('click', function () {
     const cards = document.querySelector('.card');
     cards.remove(); //Удаление карточки
   });
 
-  cardsContainer.prepend(cardElement);
+  return cardElement;
 }
 
-function addNewCards (evt) {
-  evt.preventDefault();
-  const cardName = document.querySelector('#name_pic').value;
-  const cardLink = document.querySelector('#link_pic').value;
-
-  addCard(cardName, cardLink);
-  document.getElementById('add_card').reset();
+function addCard (container, cardElement) {
+  container.prepend(cardElement);
 }
 
-//Вынесите отдельно функцию создания карточки:
-function createCard(name, link) {
-const element = .............. //создается DOM элемент карточки
-............. //в карточку вставляются данные и навешиваются обработчики
-return element; //возвращается созданная карточка
+function showCard(popupName, popupLink) {
+  modalPic.querySelector('.popup__title').textContent = popupName;
+  modalPic.querySelector('.popup__image').src = popupLink;
+  modalPic.querySelector('.popup__image').alt = popupName;
+
+  cardImage.querySelector('.card__pic').addEventListener('click', (evt) => {
+    showCard(card.name, card.link); //Открытие попапа с картинкой
+    openPopup(modalPic);
+  });
+
 }
-//И отдельно функцию добавления карточки в контейнер
-function addCard(container, cardElement) { .............. //cardElement добавляется в container }
 
-//Таким образом добавление будет выглядеть так:
-addCard(listElement, createCard(card.name, card.link) );
-
-
-
-
-createButton.addEventListener('submit',addNewCards);
-
-
-formElement.addEventListener('submit', formSubmitHandler);
-saveButton.addEventListener('click', ()  => closePopup(modalProfile));
-editButton.addEventListener('click', ()  => openPopup(modalProfile));
+//--------------------------Открытие и закрытие профиля-------------------------------
+editButton.addEventListener('click', ()  => {
+  valueForm();
+  openPopup(modalProfile);
+});
 closeButton.forEach(btn => btn.addEventListener('click', ()  => closePopup(modalProfile)));
+//--------------------------Открытие и закрытие карточек-------------------------------
 addButton.addEventListener('click',  ()  => openPopup(modalCard));
-closeButton.forEach(btn => btn.addEventListener('click', ()  => closePopup(modalCard)));
+closeButton.forEach(btn => btn.addEventListener('click', ()  => {
+  closePopup(modalCard);
+}));
+//--------------------------Создание карточки-------------------------------
+createButton.addEventListener('submit',() => {
+  addCard(cardsContainer, createCard(card.name, card.link));
+  clearForm(cardForm);
+  closePopup(modalCard);
+});
+//--------------------------Прослушивание событий профиля-------------------------------
+profileform.addEventListener('submit', ()  => formSubmitHandler);
+saveButton.addEventListener('submit', ()  => closePopup(modalProfile));
+//--------------------------Добавление 6 карточек на сайт-------------------------------
+initialCards.forEach(card => {
+  addCard(cardsContainer, createCard(card.name, card.link));
+});
