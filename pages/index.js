@@ -3,7 +3,6 @@ const modalProfile = document.querySelector('.popup__profile');
 const modalCard = document.querySelector('.popup__card');
 const modalPic = document.querySelector('.popup__pic');
 const closeButton = document.querySelectorAll('.popup__button_type_close');
-const saveButton = document.querySelector('.popup__profile .popup__button_type_save');
 //-------------------------------------------------------------------
 const profileform = document.getElementById('edit_profile');
 const nameProfile = document.getElementById('name');
@@ -12,16 +11,11 @@ const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
 const editButton = content.querySelector('.profile__button_type_edit');
 const addButton = content.querySelector('.profile__button_type_add');
-const modal = document.querySelector('.popup');
 //-------------------------------------------------------------------
 const cardsContainer = content.querySelector('.cards__container');
 const cardTemplate = document.querySelector('#cards__template').content;
-const createButton = document.querySelector('.popup__card .popup__button_type_save');
 const removeButton = content.querySelector('.card__remove');
-const cardImage = document.querySelector('.card__pic');
 const cardForm = document.getElementById('add_card');
-
-//---------------------------------- Шесть карточек «из коробки»----------------------------------
 const initialCards = [
   {
     name: 'Архыз',
@@ -95,25 +89,17 @@ function createCard(name, link) {
     const cards = document.querySelector('.card');
     cards.remove();
   });
-
-  return cardElement;
-}
-
-function addCard(container, cardElement) {
-  container.prepend(cardElement);
-}
-
-function showCard(popupName, popupLink) {
-  modalPic.querySelector('.popup__title').textContent = popupName;
-  modalPic.querySelector('.popup__image').src = popupLink;
-  modalPic.querySelector('.popup__image').alt = popupName;
-
-  cardImage.querySelector('.card__pic').addEventListener('click', (evt) => {
-    evt.preventDefault();
-    showCard(card.name, card.link); //Открытие попапа с картинкой
+  //открытие попап для новых карточек
+  cardElement.querySelector('.card__pic').addEventListener('click', function () {
+    showCard(name, link);
     openPopup(modalPic);
   });
 
+  return cardElement;
+}
+//--------------------------добавление в контейнер карточек-------------------------------
+function addCard(container, cardElement) {
+  container.prepend(cardElement);
 }
 
 //--------------------------Открытие и закрытие профиля-------------------------------
@@ -126,21 +112,38 @@ closeButton.forEach(btn => btn.addEventListener('click', () => closePopup(modalP
 //--------------------------Редактирование профиля-------------------------------
 profileform.addEventListener('submit', formSubmitHandler);
 
-//--------------------------Добавление 6 карточек на сайт-------------------------------
-initialCards.forEach(card => {
-  addCard(cardsContainer, createCard(card.name, card.link));
-});
-
 //--------------------------Открытие и закрытие карточек-------------------------------
 addButton.addEventListener('click', () => openPopup(modalCard));
 closeButton.forEach(btn => btn.addEventListener('click', () => {
-  clearForm(cardForm);
   closePopup(modalCard);
 }));
 //--------------------------Создание карточки-------------------------------
 cardForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  addCard(cardsContainer, createCard(card.name, card.link));
+  addCard(cardsContainer, createCard(cardForm.name.value, cardForm.link.value));
   clearForm(cardForm);
   closePopup(modalCard);
 });
+
+//--------------------------Добавление 6 карточек на сайт-------------------------------
+
+initialCards.forEach(card => {
+  addCard(cardsContainer, createCard(card.name, card.link));
+});
+
+//-----------------------Открытие и закрытие попап с карточой-------------------------------
+const cardImage = document.querySelectorAll('.card__pic');
+function showCard(popupName, popupLink) {
+  openPopup(modalPic);
+  modalPic.querySelector('.popup__title').textContent = popupName;
+  modalPic.querySelector('.popup__image').src = popupLink;
+  modalPic.querySelector('.popup__image').alt = popupName;
+}
+
+cardImage.forEach(card => card.addEventListener('click', () => {
+  showCard(card.name, card.src);
+}));
+
+closeButton.forEach(btn => btn.addEventListener('click', () => {
+  closePopup(modalPic);
+}));
