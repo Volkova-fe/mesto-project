@@ -86,6 +86,7 @@ function createCard(name, link) {
     const cards = document.querySelector('.card');
     cards.remove();
   });
+
   //открытие попап для новых карточек
   cardElement.querySelector('.card__pic').addEventListener('click', function () {
     showCard(name, link);
@@ -111,7 +112,9 @@ closeButtonProfile.addEventListener('click', () => closePopup(modalProfile));
 profileform.addEventListener('submit', formSubmitHandler);
 
 //--------------------------Открытие и закрытие карточек-------------------------------
-addButton.addEventListener('click', () => openPopup(modalCard));
+addButton.addEventListener('click', () => {
+  openPopup(modalCard);
+});
 
 closeButtonCard.addEventListener('click', () => closePopup(modalCard));
 //--------------------------Создание карточки-------------------------------
