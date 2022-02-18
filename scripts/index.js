@@ -2,7 +2,7 @@ const content = document.querySelector('.content');
 const modalProfile = document.querySelector('.popup__profile');
 const modalCard = document.querySelector('.popup__card');
 const modalPic = document.querySelector('.popup__pic');
-const closeButton = document.querySelectorAll('.popup__button_type_close');
+const closeButtonPic = document.querySelector('#close_popupPic');
 //-------------------------------------------------------------------
 const profileform = document.getElementById('edit_profile');
 const nameProfile = document.getElementById('name');
@@ -11,11 +11,12 @@ const nameInput = document.querySelector('.profile__title');
 const jobInput = document.querySelector('.profile__subtitle');
 const editButton = content.querySelector('.profile__button_type_edit');
 const addButton = content.querySelector('.profile__button_type_add');
+const closeButtonProfile = document.querySelector('#close_popupProfile');
 //-------------------------------------------------------------------
 const cardsContainer = content.querySelector('.cards__container');
 const cardTemplate = document.querySelector('#cards__template').content;
-const removeButton = content.querySelector('.card__remove');
 const cardForm = document.getElementById('add_card');
+const closeButtonCard = document.querySelector('#close_popupCard');
 const initialCards = [
   {
     name: 'Архыз',
@@ -58,10 +59,6 @@ function closePopup(popup) {
 function valueForm() {
   nameProfile.value = nameInput.textContent;
   profProfile.value = jobInput.textContent;
-}
-
-function clearForm(idForm) {
-  idForm.reset();
 }
 
 function formSubmitHandler(evt) {
@@ -107,21 +104,21 @@ editButton.addEventListener('click', () => {
   valueForm();
   openPopup(modalProfile);
 });
-closeButton.forEach(btn => btn.addEventListener('click', () => closePopup(modalProfile)
-));
+
+closeButtonProfile.addEventListener('click', () => closePopup(modalProfile));
+
 //--------------------------Редактирование профиля-------------------------------
 profileform.addEventListener('submit', formSubmitHandler);
 
 //--------------------------Открытие и закрытие карточек-------------------------------
 addButton.addEventListener('click', () => openPopup(modalCard));
-closeButton.forEach(btn => btn.addEventListener('click', () => {
-  closePopup(modalCard);
-}));
+
+closeButtonCard.addEventListener('click', () => closePopup(modalCard));
 //--------------------------Создание карточки-------------------------------
 cardForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   addCard(cardsContainer, createCard(cardForm.name.value, cardForm.link.value));
-  clearForm(cardForm);
+  cardForm.reset();
   closePopup(modalCard);
 });
 
@@ -140,10 +137,4 @@ function showCard(popupName, popupLink) {
   modalPic.querySelector('.popup__image').alt = popupName;
 }
 
-cardImage.forEach(card => card.addEventListener('click', () => {
-  showCard(card.name, card.src);
-}));
-
-closeButton.forEach(btn => btn.addEventListener('click', () => {
-  closePopup(modalPic);
-}));
+closeButtonPic.addEventListener('click', () => closePopup(modalPic));
