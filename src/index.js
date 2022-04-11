@@ -1,3 +1,4 @@
+import './pages/index.css'
 const content = document.querySelector('.content');
 const modalProfile = document.querySelector('.popup__profile');
 const modalCard = document.querySelector('.popup__card');
