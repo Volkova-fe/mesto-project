@@ -1,4 +1,13 @@
-import './pages/index.css'
+import '../pages/index.css'
+const enableValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
 const content = document.querySelector('.content');
 const modalProfile = document.querySelector('.popup__profile');
 const modalCard = document.querySelector('.popup__card');
@@ -18,6 +27,7 @@ const cardsContainer = content.querySelector('.cards__container');
 const cardTemplate = document.querySelector('#cards__template').content;
 const cardForm = document.getElementById('add_card');
 const closeButtonCard = document.querySelector('#close_popupCard');
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -50,10 +60,14 @@ const initialCards = [
 //----------------------------------Открытие и закрытие модального окна----------------------------------
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', keyHandler);
+  document.addEventListener('click', mouseOverlayHandler);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', keyHandler);
+  document.removeEventListener('click', mouseOverlayHandler);
 }
 
 //----------------------------------Редактирование имени и информации о себе----------------------------------
@@ -101,6 +115,33 @@ function addCard(container, cardElement) {
   container.prepend(cardElement);
 }
 
+//-----------------------Открытие и закрытие попап при нажатии Esc----------
+
+function keyHandler(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+	if (evt.key === "Escape") {
+		closePopup(openedPopup);
+	};
+};
+
+//-----------------------Открытие и закрытие попап при нажатии Esc----------
+
+function mouseOverlayHandler(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+  if(evt.target.classList.contains('popup')) {
+    closePopup(openedPopup);
+  }
+};
+//-----------------------Неактивное состояние кнопки----------
+
+function toggleButtonState(inputSelector, submitButtonSelector) {
+  if(hasInvalidInput(inputSelector)){
+    submitButtonSelector.classList.add('popup__button_disabled');
+  } else {
+    submitButtonSelector.classList.remove('popup__button_disabled');
+  }
+}
+
 //--------------------------Открытие и закрытие профиля-------------------------------
 editButton.addEventListener('click', () => {
   valueForm();
@@ -132,7 +173,7 @@ initialCards.forEach(card => {
   addCard(cardsContainer, createCard(card.name, card.link));
 });
 
-//-----------------------Открытие и закрытие попап с карточой-------------------------------
+//-----------------------Открытие и закрытие попап с карточой---------------------------
 const cardImage = document.querySelectorAll('.card__pic');
 function showCard(popupName, popupLink) {
   openPopup(modalPic);
@@ -142,3 +183,7 @@ function showCard(popupName, popupLink) {
 }
 
 closeButtonPic.addEventListener('click', () => closePopup(modalPic));
+
+// включение валидации вызовом enableValidation
+
+//Validation(enableValidation);
