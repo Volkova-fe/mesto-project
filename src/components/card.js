@@ -1,22 +1,27 @@
-import { modalPic, cardTemplate } from './utils';
+import { modalPic, cardTemplate, imageModalPic, titleModalPic } from './utils';
 import { openPopup } from './modal';
 
 //---------------------------------- Добавление карточки--------------------------------
 //Создание карточки
 export function createCard(name, link) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-
+  const elementPic = cardElement.querySelector('.card__pic');
   cardElement.querySelector('.card__title').textContent = name;
-  cardElement.querySelector('.card__pic').src = link;
-  cardElement.querySelector('.card__pic').alt = name;
+  elementPic.src = link;
+  elementPic.alt = name;
 
   // лайк карточки
-  cardElement.querySelector('.card__button').addEventListener('click', likeActive);
+  const cardLikeButton = cardElement.querySelector('.card__button');
+  cardLikeButton.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('card__button_state_active');
+  });
   //Удаление карточки
-  cardElement.querySelector('.card__remove').addEventListener('click', removeCard);
-
+  const cardRemoveButton = cardElement.querySelector('.card__remove');
+  cardRemoveButton.addEventListener('click', (evt) => {
+    cardElement.remove();
+  });
   //открытие попап для новых карточек
-  cardElement.querySelector('.card__pic').addEventListener('click', function () {
+  elementPic.addEventListener('click', function () {
     showCard(name, link);
     openPopup(modalPic);
   });
@@ -24,16 +29,6 @@ export function createCard(name, link) {
   return cardElement;
 }
 
-// лайк карточки
-export function likeActive(evt) {
-  evt.target.classList.toggle('card__button_state_active');
-}
-
-//Удаление карточки
-export function removeCard() {
-  const cards = document.querySelector('.card');
-  cards.remove();
-}
 
 //--------------------------добавление в контейнер карточек-------------------------------
 export function addCard(container, cardElement) {
@@ -41,12 +36,11 @@ export function addCard(container, cardElement) {
 }
 
 //-----------------------Открытие и закрытие попап с карточой---------------------------
-export const cardImage = document.querySelectorAll('.card__pic');
 export function showCard(popupName, popupLink) {
   openPopup(modalPic);
-  modalPic.querySelector('.popup__title').textContent = popupName;
-  modalPic.querySelector('.popup__image').src = popupLink;
-  modalPic.querySelector('.popup__image').alt = popupName;
+  titleModalPic.textContent = popupName;
+  imageModalPic.src = popupLink;
+  imageModalPic.alt = popupName;
 }
 
 
