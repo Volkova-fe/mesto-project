@@ -1,48 +1,63 @@
 import '../pages/index.css'
-import { validation, enableValidation, hideErorrs } from './validate.js';
+import { enableValidation } from './validate.js';
 import { openPopup, closePopup } from './modal';
 import {
-  modalProfile, modalCard, modalPic, closeButtonPic, profileform,
-  editButton, addButton, closeButtonProfile,
-  cardsContainer, cardForm, closeButtonCard, initialCards,
+  modalProfile, modalCard, profileform,
+  editButton, addButton, cardsContainer,
+  cardForm, initialCards, popups, cardSaveButtom,
+  validationSettings,
 } from './utils';
 import { createCard, addCard } from './card.js';
-import { valueForm, formSubmitHandler } from './profile.js';
+import { fillProfileInputs, handleProfileFormSubmit, hideErorrs } from './profile.js';
 
-//--------------------------Открытие и закрытие профиля-------------------------------
+//--------------------------закрытие модальных окон-------------------------------
+
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__close')) {
+      closePopup(popup)
+    }
+  })
+})
+
+//--------------------------Открытие профиля-------------------------------
 editButton.addEventListener('click', () => {
-  valueForm();
+  fillProfileInputs();
   hideErorrs(modalProfile);
   openPopup(modalProfile);
 });
 
-closeButtonProfile.addEventListener('click', () => closePopup(modalProfile));
-
 //--------------------------Редактирование профиля-------------------------------
-profileform.addEventListener('submit', formSubmitHandler);
+profileform.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+  handleProfileFormSubmit();
+});
 
-//--------------------------Открытие и закрытие карточек-------------------------------
+//--------------------------Открытие карточек-------------------------------
 addButton.addEventListener('click', () => {
   openPopup(modalCard);
 });
 
-closeButtonCard.addEventListener('click', () => closePopup(modalCard));
 //--------------------------Создание карточки-------------------------------
 cardForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   addCard(cardsContainer, createCard(cardForm.name.value, cardForm.link.value));
   cardForm.reset();
+  cardSaveButtom.classList.add(validationSettings.inactiveButtonClass);
+  cardSaveButtom.disabled = true;
   closePopup(modalCard);
 });
 
 //--------------------------Добавление 6 карточек на сайт-------------------------------
 
 initialCards.forEach(card => {
-  addCard(cardsContainer, createCard(card.name, card.link));
+  addCard(cardsContainer,
+    createCard(card.name, card.link));
 });
-//--------------------------закрытие попап с карточкой-------------------------------
-closeButtonPic.addEventListener('click', () => closePopup(modalPic));
 
 //--------------------------Валидация-------------------------------
 
-validation(enableValidation);
+enableValidation(validationSettings);
