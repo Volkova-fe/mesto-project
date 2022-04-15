@@ -1,4 +1,4 @@
-.popup__error_visible {
+.popup__input-error_active {
   visibility: visible;
   opacity: 1;
 }
