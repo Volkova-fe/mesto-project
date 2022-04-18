@@ -1,5 +1,7 @@
-import '../pages/index.css'
-import { enableValidation } from './validate.js';
+import '../pages/index.css';
+import 'core-js/es/symbol';
+import { getInitialCards, getInfoProfile } from './api';
+import { enableValidation } from './validate';
 import { openPopup, closePopup } from './modal';
 import {
   modalProfile, modalCard, profileform,
@@ -61,3 +63,20 @@ initialCards.forEach(card => {
 //--------------------------Валидация-------------------------------
 
 enableValidation(validationSettings);
+
+//==============================Api=================================
+
+//---------Загрузка информации о карточках с сервера-------------
+getInitialCards()
+.then((result) => {
+})
+.catch((err) => {
+  console.log(err);
+});
+//---------Загрузка информации о пользователе с сервера-------------
+getInfoProfile()
+.then((result) => {
+})
+.catch((err) => {
+  console.log(err);
+});
