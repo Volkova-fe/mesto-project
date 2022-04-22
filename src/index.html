@@ -16,9 +16,9 @@
     <main class="content">
       <section class="profile">
         <img src="<%=require('./images/image.jpg')%>" alt="Аватар Пользователя" class="profile__avatar">
-        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <h1 class="profile__title"></h1>
         <button class="profile__button profile__button_type_edit" type="button"></button>
-        <p class="profile__subtitle">Исследователь океана</p>
+        <p class="profile__subtitle"></p>
         <button class="profile__button profile__button_type_add" type="button"></button>
       </section>
       <div class="cards">
@@ -37,13 +37,13 @@
         <form class="popup__form" id="edit_profile" name="edit_profile" novalidate action='#'>
           <fieldset class="popup__set">
             <label class="popup__field">
-              <input class="popup__input" type="text" id="name" name="name" placeholder="Имя" value="Жак-Ив Кусто"
-                required minlength="2" maxlength="40">
+              <input class="popup__input" type="text" id="name" name="name" placeholder="Имя" required minlength="2"
+                maxlength="40">
               <span class="popup__input-error" id="name-error"></span>
             </label>
             <label class="popup__field">
-              <input class="popup__input" type="text" id="about" name="about" placeholder="О себе"
-                value="Исследователь океана" required minlength="2" maxlength="200">
+              <input class="popup__input" type="text" id="about" name="about" placeholder="О себе" required
+                minlength="2" maxlength="200">
               <span class="popup__input-error" id="about-error"></span>
             </label>
             <button class="popup__button popup__button_type_save" type="submit"

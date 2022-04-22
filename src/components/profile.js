@@ -1,17 +1,27 @@
 import { modalProfile, nameProfile, profProfile, nameInput, jobInput, profileSaveButtom, validationSettings } from './utils';
 import { hideInputError } from './validate';
 import { closePopup } from './modal';
+import { editInfoProfile, getInfoProfile } from './api';
 //----------------------------------Редактирование имени и информации о себе----------------------------------
-export function fillProfileInputs() {
-  nameProfile.value = nameInput.textContent;
-  profProfile.value = jobInput.textContent;
-  profileSaveButtom.classList.add(validationSettings.inactiveButtonClass);
-  profileSaveButtom.disabled = true;
+
+
+export function fillProfileInputs(qwery) {
+  const promise = qwery();
+  promise
+  .then ((data) => {
+    nameInput.textContent = data.name;
+    jobInput.textContent = data.about;
+    profileSaveButtom.classList.add(validationSettings.inactiveButtonClass);
+    profileSaveButtom.disabled = true;
+  })
+
 }
 
 export function handleProfileFormSubmit() {
-  nameInput.textContent = nameProfile.value;
-  jobInput.textContent = profProfile.value;
+  const nameEdit = nameProfile.value;
+  const aboutEdit = profProfile.value;
+  editInfoProfile(nameEdit, aboutEdit);
+  fillProfileInputs(getInfoProfile)
   closePopup(modalProfile);
 }
 

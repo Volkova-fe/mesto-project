@@ -26,6 +26,32 @@ export const getInitialCards = () => {
     });
 }
 
+export const addNewCards = (nameCard, linkCard) => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': config.headers['Content-Type']
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      name: nameCard,
+      link: linkCard
+    })
+  })
+}
+
+export const removeCard = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': config.headers['Content-Type']
+    },
+    method: 'DELETE'
+  })
+}
+
+//=====================Обновления данных профиля и редактирование
+
 export const getInfoProfile = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
@@ -37,4 +63,15 @@ export const getInfoProfile = () => {
 
       return Promise.reject(`Ошибка: ${res.status}`);
     });
+}
+
+export const editInfoProfile = (editName, editAbout) => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: editName,
+      about: editAbout
+    })
+  });
 }

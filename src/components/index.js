@@ -1,16 +1,16 @@
 import '../pages/index.css';
 import 'core-js/es/symbol';
-import { getInitialCards, getInfoProfile } from './api';
 import { enableValidation } from './validate';
 import { openPopup, closePopup } from './modal';
 import {
   modalProfile, modalCard, profileform,
   editButton, addButton, cardsContainer,
-  cardForm, initialCards, popups, cardSaveButtom,
+  cardForm, popups, cardSaveButtom,
   validationSettings,
 } from './utils';
 import { createCard, addCard } from './card.js';
-import { fillProfileInputs, handleProfileFormSubmit, hideErorrs } from './profile.js';
+import { fillProfileInputs, handleProfileFormSubmit, hideErorrs } from './profile';
+import { getInitialCards, getInfoProfile } from './api';
 
 //--------------------------закрытие модальных окон-------------------------------
 
@@ -27,7 +27,7 @@ popups.forEach((popup) => {
 
 //--------------------------Открытие профиля-------------------------------
 editButton.addEventListener('click', () => {
-  fillProfileInputs();
+  fillProfileInputs(getInfoProfile);
   hideErorrs(modalProfile);
   openPopup(modalProfile);
 });
@@ -53,13 +53,6 @@ cardForm.addEventListener('submit', function (evt) {
   closePopup(modalCard);
 });
 
-//--------------------------Добавление 6 карточек на сайт-------------------------------
-
-initialCards.forEach(card => {
-  addCard(cardsContainer,
-    createCard(card.name, card.link));
-});
-
 //--------------------------Валидация-------------------------------
 
 enableValidation(validationSettings);
@@ -68,15 +61,16 @@ enableValidation(validationSettings);
 
 //---------Загрузка информации о карточках с сервера-------------
 getInitialCards()
-.then((result) => {
-})
-.catch((err) => {
-  console.log(err);
-});
+  .then((cards) => {
+    cards.forEach(card => {
+      addCard(cardsContainer,
+        createCard(card.name, card.link));
+    });
+  })
+console.log (getInitialCards())
+
 //---------Загрузка информации о пользователе с сервера-------------
-getInfoProfile()
-.then((result) => {
-})
-.catch((err) => {
-  console.log(err);
-});
+
+fillProfileInputs(getInfoProfile);
+
+console.log (getInfoProfile());
