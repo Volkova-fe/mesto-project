@@ -15,8 +15,11 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="<%=require('./images/image.jpg')%>" alt="Аватар Пользователя" class="profile__avatar">
-        <h1 class="profile__title"></h1>
+        <div class="profile__avatar-container">
+          <img alt="Аватар Пользователя" class="profile__avatar">
+          <button class="profile__avatar-edit" type="button"></button>
+        </div>
+        <h1 class=" profile__title"></h1>
         <button class="profile__button profile__button_type_edit" type="button"></button>
         <p class="profile__subtitle"></p>
         <button class="profile__button profile__button_type_add" type="button"></button>
@@ -48,6 +51,24 @@
             </label>
             <button class="popup__button popup__button_type_save" type="submit"
               id="profile-button-save">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup__avatar">
+      <div class="popup__container">
+        <button class="popup__button popup__button_type_close popup__close" id="close_popupProfile"
+          type="button"></button>
+        <h2 class="popup__heading">Обновить аватар</h2>
+        <form class="popup__form" id="edit_avatar" name="edit_avatar" novalidate action='#'>
+          <fieldset class="popup__set">
+            <label class="popup__field">
+              <input class="popup__input" type="url" id="link-avatar_pic" name="link" placeholder="Ссылка на картинку"
+                required>
+              <span class="popup__input-error" id="link-avatar_pic-error"></span>
+            </label>
+            <button class="popup__button popup__button_type_save" type="submit"
+              id="avatar-button-save">Сохранить</button>
           </fieldset>
         </form>
       </div>
@@ -86,7 +107,10 @@
         <img class="card__pic">
         <div class="card__description">
           <h2 class="card__title"></h2>
-          <button class="card__button" type="button"></button>
+          <div class="card__likes">
+            <button class="card__button" id="like_card" type="button"></button>
+            <p class="card__count-likes">0</p>
+          </div>
         </div>
       </li>
     </template>

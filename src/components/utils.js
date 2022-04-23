@@ -4,6 +4,7 @@ export const popups = document.querySelectorAll('.popup');
 export const modalProfile = document.querySelector('.popup__profile');
 export const modalCard = document.querySelector('.popup__card');
 export const modalPic = document.querySelector('.popup__pic');
+export const modalAvatar = document.querySelector('.popup__avatar');
 export const closeButtonPic = document.querySelector('#close_popupPic');
 //-------------------------------------------------------------------
 export const profileform = document.getElementById('edit_profile');
@@ -16,6 +17,13 @@ export const addButton = content.querySelector('.profile__button_type_add');
 export const closeButtonProfile = document.querySelector('#close_popupProfile');
 export const profileSaveButtom = document.querySelector('#profile-button-save');
 //-------------------------------------------------------------------
+export const avatarForm = document.getElementById('edit_avatar');
+export const editAvatarButton = content.querySelector('.profile__avatar-edit');
+export const profileAvatar = document.querySelector('.profile__avatar');
+export const avatarSaveform = document.getElementById('avatar-button-save');
+export const avatarInput = document.getElementById('link-avatar_pic');
+
+//-------------------------------------------------------------------
 export const cardsContainer = content.querySelector('.cards__container');
 export const cardTemplate = document.querySelector('#cards__template').content;
 export const cardForm = document.getElementById('add_card');
@@ -25,6 +33,9 @@ export const imageModalPic = modalPic.querySelector('.popup__image');
 export const titleModalPic = modalPic.querySelector('.popup__title');
 
 //-------------------------------------------------------------------
+
+export const API_URL = 'https://nomoreparties.co/v1/plus-cohort-9';
+export const token = '7c830fbc-53f4-4c63-a7ce-3acd53d5bb5b';
 
 export const validationSettings = ({
   formSelector: '.popup__form',

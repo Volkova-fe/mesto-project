@@ -1,77 +1,129 @@
 import 'core-js/es/symbol';
 import 'core-js/es/object';
+import { API_URL, token } from './utils';
 
 export const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-9',
+  baseUrl: `${API_URL}`,
   headers: {
-    authorization: '7c830fbc-53f4-4c63-a7ce-3acd53d5bb5b',
+    authorization: `${token}`,
     'Content-Type': 'application/json'
   }
 };
 
-export const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: {
-      authorization: config.headers.authorization,
-      'Content-Type': config.headers['Content-Type']
-    },
-    method: 'GET',
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+const responseCheck = res => {
+  if (res.ok) {
+    return res.json() // then
+  } else {
+    return Promise.reject(`Ошибка: code ${res.status}`) // catch
+  }
 }
 
-export const addNewCards = (nameCard, linkCard) => {
-  return fetch(`${config.baseUrl}/cards`, {
+const responseCheckWithNoData = res => {
+  if (!res.ok) {
+    return Promise.reject(`Ошибка: code ${res.status}`) // catch
+  }
+}
+//------------------------------------------------------------------
+//Получить начальные данные о пользователе
+export const getInfoProfile = () => {
+  return fetch(`${API_URL}/users/me`, {
     headers: {
-      authorization: config.headers.authorization,
-      'Content-Type': config.headers['Content-Type']
-    },
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(responseCheck)
+};
+
+//Отредактировать данные о пользователе
+export const editInfoProfile = (name, about) => {
+  return fetch(`${API_URL}/users/me`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      name, about
+    }),
+    headers: {
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(responseCheck)
+    .catch(err => console.error(err))
+};
+
+//Отредактировать данные о пользователе
+export const editAvatarProfile = (avatarLink) => {
+  return fetch(`${API_URL}/users/me/avatar`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      avatar: avatarLink
+    }),
+    headers: {
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(responseCheck)
+};
+
+//Получить начальные карточки
+export const getInitialCards = () => {
+  return fetch(`${API_URL}/cards`, {
+    headers: {
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(responseCheck)
+};
+
+//Добавить новую карточку
+export const addNewCards = (name, link) => {
+  return fetch(`${API_URL}/cards`, {
     method: 'POST',
     body: JSON.stringify({
-      name: nameCard,
-      link: linkCard
-    })
-  })
-}
-
-export const removeCard = () => {
-  return fetch(`${config.baseUrl}/cards`, {
+      name, link
+    }),
     headers: {
-      authorization: config.headers.authorization,
-      'Content-Type': config.headers['Content-Type']
-    },
-    method: 'DELETE'
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
   })
-}
+    .then(responseCheck)
+};
 
-//=====================Обновления данных профиля и редактирование
-
-export const getInfoProfile = () => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers
+//Удалить карточку
+export const deleteCard = (cardid) => {
+  return fetch(`${API_URL}/cards/${cardid}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
+  .then(responseCheckWithNoData);
+};
 
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-}
+//Добавить лайка карточке
+export const addLikeCard = (cardid) => {
+  return fetch(`${API_URL}/cards/${cardid}`, {
+    method: 'PUT',
+    headers: {
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(responseCheckWithNoData);
+};
 
-export const editInfoProfile = (editName, editAbout) => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: editName,
-      about: editAbout
-    })
-  });
-}
+//удалить лайк карточке
+export const deleteLikeCard = (cardid) => {
+  return fetch(`${API_URL}/cards/${cardid}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(responseCheckWithNoData);
+};
