@@ -1,6 +1,6 @@
 import 'core-js/es/symbol';
 import 'core-js/es/object';
-import { API_URL, token } from './utils';
+import { API_URL, token } from './variables';
 
 export const config = {
   baseUrl: `${API_URL}`,
@@ -36,11 +36,12 @@ export const getInfoProfile = () => {
 };
 
 //Отредактировать данные о пользователе
-export const editInfoProfile = (name, about) => {
+export const editInfoProfile = (nameProfile, profProfile) => {
   return fetch(`${API_URL}/users/me`, {
     method: 'PATCH',
     body: JSON.stringify({
-      name, about
+      name: nameProfile.value,
+      about: profProfile.value
     }),
     headers: {
       authorization: `${token}`,
@@ -48,10 +49,9 @@ export const editInfoProfile = (name, about) => {
     }
   })
     .then(responseCheck)
-    .catch(err => console.error(err))
 };
 
-//Отредактировать данные о пользователе
+//Отредактировать аватар пользователя
 export const editAvatarProfile = (avatarLink) => {
   return fetch(`${API_URL}/users/me/avatar`, {
     method: 'PATCH',
@@ -101,29 +101,32 @@ export const deleteCard = (cardid) => {
       'Content-Type': 'application/json'
     }
   })
-  .then(responseCheckWithNoData);
+    .then(responseCheckWithNoData)
+    .catch(err => console.error(err))
 };
 
 //Добавить лайка карточке
 export const addLikeCard = (cardid) => {
-  return fetch(`${API_URL}/cards/${cardid}`, {
+  return fetch(`${API_URL}/cards/likes/${cardid}`, {
     method: 'PUT',
     headers: {
       authorization: `${token}`,
       'Content-Type': 'application/json'
     }
   })
-  .then(responseCheckWithNoData);
+    .then(responseCheckWithNoData)
+    .catch(err => console.error(err))
 };
 
 //удалить лайк карточке
 export const deleteLikeCard = (cardid) => {
-  return fetch(`${API_URL}/cards/${cardid}`, {
+  return fetch(`${API_URL}/cards/likes/${cardid}`, {
     method: 'DELETE',
     headers: {
       authorization: `${token}`,
       'Content-Type': 'application/json'
     }
   })
-  .then(responseCheckWithNoData);
+    .then(responseCheckWithNoData)
+    .catch(err => console.error(err))
 };

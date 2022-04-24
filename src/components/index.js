@@ -7,15 +7,18 @@ import {
   editButton, addButton, cardsContainer,
   cardForm, popups, cardSaveButtom,
   validationSettings, modalAvatar,
-  editAvatarButton, avatarForm
-} from './utils';
+  editAvatarButton, avatarForm,
+  nameProfile, nameInput, profProfile,
+  jobInput, profileAvatar, profileSaveButtom
+} from './variables';
 import { createCard, addCard } from './card.js';
 import {
   handleProfileFormSubmit, hideErorrs,
-  fillProfileInputs, editAvatarPic
+  editAvatarPic
 }
   from './profile';
 import { getInitialCards, addNewCards, getInfoProfile } from './api';
+import { disabledSaveButton, renderCardLoading, renderProfileLoading } from './utils';
 
 //--------------------------закрытие модальных окон-------------------------------
 
@@ -32,18 +35,23 @@ popups.forEach((popup) => {
 
 //---------Загрузка информации о пользователе с сервера-------------
 let userId;
-//Получение данных о пользователе
-fillProfileInputs(getInfoProfile);
-console.log(getInfoProfile())
+getInfoProfile()
 
+//Получение данных о пользователе
 getInfoProfile()
   .then(data => {
     userId = data._id;
+    nameInput.textContent = data.name;
+    jobInput.textContent = data.about;
+    profileAvatar.src = data.avatar;
+    profileAvatar.alt = `Аватар ${data.name}`;
   })
   .catch(err => console.error(err));
 
 //--------------------------Открытие профиля-------------------------------
 editButton.addEventListener('click', () => {
+  nameProfile.value = nameInput.textContent;
+  profProfile.value = jobInput.textContent;
   hideErorrs(modalProfile);
   openPopup(modalProfile);
 });
@@ -52,6 +60,7 @@ editButton.addEventListener('click', () => {
 profileform.addEventListener('submit', function (evt) {
   evt.preventDefault();
   handleProfileFormSubmit();
+  disabledSaveButton(profileSaveButtom);
 });
 
 //--------------------------Открытие формы для смены аватара ---------------
@@ -64,14 +73,16 @@ editAvatarButton.addEventListener('click', () => {
 
 avatarForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
+  renderProfileLoading(true, avatarForm);
   editAvatarPic();
+  avatarForm.reset();
 });
 
 //---------Загрузка информации о карточках с сервера--------------------------
 getInitialCards()
   .then((cards) => {
     cards.forEach(card => {
-      const initialCards = createCard(card.name, card.link, card._id);
+      const initialCards = createCard(card.name, card.link, card._id, card.likes.length, card.likes.some(item => item._id === userId));
       const cardRemoveButton = initialCards.querySelector('.card__remove');
       if (card.owner._id !== userId) {
         cardRemoveButton.remove();
@@ -80,7 +91,6 @@ getInitialCards()
     })
   })
   .catch(err => console.error(err));
-console.log(getInitialCards());
 
 //--------------------------Открытие карточек-------------------------------
 addButton.addEventListener('click', () => {
@@ -90,17 +100,20 @@ addButton.addEventListener('click', () => {
 //--------------------------Создание карточки-------------------------------
 cardForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
+  renderCardLoading(true, cardForm);
   const cardName = cardForm.name.value;
   const cardPic = cardForm.link.value;
   addNewCards(cardName, cardPic)
     .then((card) => {
-      addCard(cardsContainer, createCard(cardName, cardPic, card._id));
+      addCard(cardsContainer, createCard(cardName, cardPic, card._id, 0, false));
     })
-    .catch(err => console.error(err));
-  cardForm.reset();
-  cardSaveButtom.classList.add(validationSettings.inactiveButtonClass);
-  cardSaveButtom.disabled = true;
-  closePopup(modalCard);
+    .catch(err => console.error(err))
+    .finally(() => {
+      renderCardLoading(false, cardForm);
+      cardForm.reset();
+      disabledSaveButton(cardSaveButtom)
+      closePopup(modalCard);
+    });
 });
 
 //--------------------------Валидация-------------------------------

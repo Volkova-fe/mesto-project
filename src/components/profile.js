@@ -1,33 +1,38 @@
 import {
-  modalProfile, nameProfile, profProfile,
-  nameInput, jobInput, profileSaveButtom,
-  validationSettings,
-  profileAvatar, avatarInput, avatarSaveform,
-  modalAvatar
-} from './utils';
+  modalProfile, validationSettings, modalAvatar,
+  avatarForm, nameProfile, nameInput, profProfile,
+  jobInput, avatarInput, avatarSaveform, profileform,
+  profileSaveButtom
+} from './variables';
 import { hideInputError } from './validate';
 import { closePopup } from './modal';
-import { editInfoProfile, getInfoProfile, editAvatarProfile } from './api';
+import { editInfoProfile, editAvatarProfile } from './api';
+import { disabledSaveButton, renderProfileLoading } from './utils';
 //----------------------------------Редактирование имени и информации о себе----------------------------------
 
-export function fillProfileInputs() {
-  getInfoProfile()
-    .then((data) => {
-      nameInput.textContent = data.name;
-      jobInput.textContent = data.about;
-      profileAvatar.src = data.avatar;
-      profileAvatar.alt = `Аватар ${data.name}`;
-      disabledSaveButton(profileSaveButtom)
-    })
+export function handleProfileFormSubmit() {
+  nameInput.textContent = nameProfile.value;
+  jobInput.textContent = profProfile.value;
+  renderProfileLoading(true, profileform);
+  editInfoProfile(nameProfile, profProfile)
+    .catch(err => console.error(err))
+    .finally(() => {
+      renderProfileLoading(false, profileform);
+      disabledSaveButton(profileSaveButtom);
+      closePopup(modalProfile);
+    });
 }
 
-export function handleProfileFormSubmit() {
-  const nameEdit = nameProfile.value;
-  const aboutEdit = profProfile.value;
-  editInfoProfile(nameEdit, aboutEdit);
-  fillProfileInputs();
-  closePopup(modalProfile);
-}
+export function editAvatarPic() {
+  const avatarLink = avatarInput.value;
+  editAvatarProfile(avatarLink)
+    .catch(err => console.error(err))
+    .finally(() => {
+      renderProfileLoading(false, avatarForm);
+      disabledSaveButton(avatarSaveform);
+      closePopup(modalAvatar);
+    });
+};
 
 export function hideErorrs(popup) {
   const formElement = popup.querySelector(validationSettings.formSelector);
@@ -35,17 +40,4 @@ export function hideErorrs(popup) {
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, validationSettings);
   });
-};
-
-export function editAvatarPic() {
-  const avatarLink = avatarInput.value;
-  editAvatarProfile(avatarLink);
-  fillProfileInputs();
-  closePopup(modalAvatar);
-  disabledSaveButton(avatarSaveform);
-};
-
-export function disabledSaveButton(saveButton) {
-  saveButton.classList.add(validationSettings.inactiveButtonClass);
-  saveButton.disabled = true;
 };
