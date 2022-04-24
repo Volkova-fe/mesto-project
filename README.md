@@ -17,6 +17,7 @@ ___
 * Webpack
 * Figma
 * Картинки
+* Api Fetch (Method: PATCH, GET, PUT, DELETE, POST)
 ___
 ## Макет
 

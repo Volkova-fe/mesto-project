@@ -8,7 +8,9 @@ export function createCard(name, link, cardId, likesCount, isLiked) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const elementPic = cardElement.querySelector('.card__pic');
   const cardRemoveButton = cardElement.querySelector('.card__remove');
+  const cardLikeButton = cardElement.querySelector('#like_card');
   const cardLikeCount = cardElement.querySelector('.card__count-likes');
+
 
   cardElement.querySelector('.card__title').textContent = name;
   elementPic.src = link;
@@ -16,14 +18,13 @@ export function createCard(name, link, cardId, likesCount, isLiked) {
   cardLikeCount.textContent = likesCount;
 
   // лайк карточки
-  const cardLikeButton = cardElement.querySelector('#like_card');
   if (isLiked) cardLikeButton.classList.add('card__button_state_active');
-  cardLikeButton.addEventListener('click', (evt) => {
+  cardLikeButton.addEventListener('click', () => {
     clickLikeButton(cardLikeButton, cardLikeCount, cardId);
   });
 
   //Удаление карточки
-  cardRemoveButton.addEventListener('click', (evt) => {
+  cardRemoveButton.addEventListener('click', () => {
     deleteCard(cardId);
     cardElement.remove();
   });

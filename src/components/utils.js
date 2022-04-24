@@ -1,5 +1,6 @@
 import { validationSettings } from './variables';
 
+//--------------------Деактивация кнопки------------------------
 export function disabledSaveButton(saveButton) {
   saveButton.classList.add(validationSettings.inactiveButtonClass);
   saveButton.disabled = true;
