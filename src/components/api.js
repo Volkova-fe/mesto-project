@@ -10,7 +10,7 @@ export const config = {
   }
 };
 
-const responseCheck = res => {
+export const responseCheck = res => {
   if (res.ok) {
     return res.json() // then
   } else {
@@ -18,7 +18,7 @@ const responseCheck = res => {
   }
 }
 
-const responseCheckWithNoData = res => {
+export const responseCheckWithNoData = res => {
   if (!res.ok) {
     return Promise.reject(`Ошибка: code ${res.status}`) // catch
   }
@@ -32,7 +32,6 @@ export const getInfoProfile = () => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheck)
 };
 
 //Отредактировать данные о пользователе
@@ -48,7 +47,6 @@ export const editInfoProfile = (nameProfile, profProfile) => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheck)
 };
 
 //Отредактировать аватар пользователя
@@ -63,7 +61,6 @@ export const editAvatarProfile = (avatarLink) => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheck)
 };
 
 //Получить начальные карточки
@@ -74,7 +71,6 @@ export const getInitialCards = () => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheck)
 };
 
 //Добавить новую карточку
@@ -89,7 +85,6 @@ export const addNewCards = (name, link) => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheck)
 };
 
 //Удалить карточку
@@ -101,8 +96,6 @@ export const deleteCard = (cardid) => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheckWithNoData)
-    .catch(err => console.error(err))
 };
 
 //Добавить лайка карточке
@@ -114,8 +107,6 @@ export const addLikeCard = (cardid) => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheckWithNoData)
-    .catch(err => console.error(err))
 };
 
 //удалить лайк карточке
@@ -127,6 +118,4 @@ export const deleteLikeCard = (cardid) => {
       'Content-Type': 'application/json'
     }
   })
-    .then(responseCheckWithNoData)
-    .catch(err => console.error(err))
 };

@@ -28,6 +28,7 @@ export const cardsContainer = content.querySelector('.cards__container');
 export const cardTemplate = document.querySelector('#cards__template').content;
 export const cardForm = document.getElementById('add_card');
 export const cardSaveButtom = cardForm.querySelector('#card-button-save');
+export const cardLikeButtom = document.querySelector('#like_card');
 export const closeButtonCard = document.querySelector('#close_popupCard');
 export const imageModalPic = modalPic.querySelector('.popup__image');
 export const titleModalPic = modalPic.querySelector('.popup__title');

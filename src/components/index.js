@@ -17,8 +17,8 @@ import {
   editAvatarPic
 }
   from './profile';
-import { getInitialCards, addNewCards, getInfoProfile } from './api';
-import { disabledSaveButton, renderCardLoading, renderProfileLoading } from './utils';
+import { getInitialCards, addNewCards, getInfoProfile, responseCheck } from './api';
+import { disabledSaveButton, renderCardLoading } from './utils';
 
 //--------------------------закрытие модальных окон-------------------------------
 
@@ -33,18 +33,29 @@ popups.forEach((popup) => {
   })
 })
 
-//---------Загрузка информации о пользователе с сервера-------------
+//---------Загрузка информации о пользователе и карточках с сервера-------------
 let userId;
-getInfoProfile()
+/*Вам нужно объединить запрос данных профиля и получения карточек в один общий
+запрос с помощью Promise.all, иначе может возникнуть проблема, что _id пользователя
+еще не получили, а карточки уже пришли, и будут некорректно отображаться лайки и
+кнопки удаления на собственных карточках.*/
 
-//Получение данных о пользователе
-getInfoProfile()
-  .then(data => {
-    userId = data._id;
-    nameInput.textContent = data.name;
-    jobInput.textContent = data.about;
-    profileAvatar.src = data.avatar;
-    profileAvatar.alt = `Аватар ${data.name}`;
+Promise.all([getInfoProfile(), getInitialCards()])
+  .then(responseCheck)
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    nameInput.textContent = userData.name;
+    jobInput.textContent = userData.about;
+    profileAvatar.src = userData.avatar;
+    profileAvatar.alt = `Аватар ${userData.name}`;
+    cards.forEach(card => {
+      const initialCards = createCard(card.name, card.link, card._id, card.likes.length, card.likes.some(item => item._id === userId));
+      const cardRemoveButton = initialCards.querySelector('.card__remove');
+      if (card.owner._id !== userId) {
+        cardRemoveButton.remove();
+      };
+      addCard(cardsContainer, initialCards);
+    })
   })
   .catch(err => console.error(err));
 
@@ -60,7 +71,6 @@ editButton.addEventListener('click', () => {
 profileform.addEventListener('submit', function (evt) {
   evt.preventDefault();
   handleProfileFormSubmit();
-  disabledSaveButton(profileSaveButtom);
 });
 
 //--------------------------Открытие формы для смены аватара ---------------
@@ -73,24 +83,8 @@ editAvatarButton.addEventListener('click', () => {
 
 avatarForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  renderProfileLoading(true, avatarForm);
   editAvatarPic();
-  avatarForm.reset();
 });
-
-//---------Загрузка информации о карточках с сервера--------------------------
-getInitialCards()
-  .then((cards) => {
-    cards.forEach(card => {
-      const initialCards = createCard(card.name, card.link, card._id, card.likes.length, card.likes.some(item => item._id === userId));
-      const cardRemoveButton = initialCards.querySelector('.card__remove');
-      if (card.owner._id !== userId) {
-        cardRemoveButton.remove();
-      };
-      addCard(cardsContainer, initialCards);
-    })
-  })
-  .catch(err => console.error(err));
 
 //--------------------------Открытие карточек-------------------------------
 addButton.addEventListener('click', () => {
@@ -104,15 +98,16 @@ cardForm.addEventListener('submit', function (evt) {
   const cardName = cardForm.name.value;
   const cardPic = cardForm.link.value;
   addNewCards(cardName, cardPic)
+    .then(responseCheck)
     .then((card) => {
       addCard(cardsContainer, createCard(cardName, cardPic, card._id, 0, false));
+      cardForm.reset();
+      disabledSaveButton(cardSaveButtom)
+      closePopup(modalCard);
     })
     .catch(err => console.error(err))
     .finally(() => {
       renderCardLoading(false, cardForm);
-      cardForm.reset();
-      disabledSaveButton(cardSaveButtom)
-      closePopup(modalCard);
     });
 });
 
