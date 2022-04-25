@@ -9,7 +9,7 @@ import {
   validationSettings, modalAvatar,
   editAvatarButton, avatarForm,
   nameProfile, nameInput, profProfile,
-  jobInput, profileAvatar, profileSaveButtom
+  jobInput, profileAvatar
 } from './variables';
 import { createCard, addCard } from './card.js';
 import {
@@ -41,7 +41,6 @@ let userId;
 кнопки удаления на собственных карточках.*/
 
 Promise.all([getInfoProfile(), getInitialCards()])
-  .then(responseCheck)
   .then(([userData, cards]) => {
     userId = userData._id;
     nameInput.textContent = userData.name;
@@ -57,7 +56,7 @@ Promise.all([getInfoProfile(), getInitialCards()])
       addCard(cardsContainer, initialCards);
     })
   })
-  .catch(err => console.error(err));
+  .catch(err => {console.error(err)});
 
 //--------------------------Открытие профиля-------------------------------
 editButton.addEventListener('click', () => {

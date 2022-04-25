@@ -32,6 +32,7 @@ export const getInfoProfile = () => {
       'Content-Type': 'application/json'
     }
   })
+  .then(responseCheck)
 };
 
 //Отредактировать данные о пользователе
@@ -71,6 +72,7 @@ export const getInitialCards = () => {
       'Content-Type': 'application/json'
     }
   })
+  .then(responseCheck)
 };
 
 //Добавить новую карточку
