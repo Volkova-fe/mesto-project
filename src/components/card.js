@@ -1,6 +1,6 @@
 import { modalPic, cardTemplate, imageModalPic, titleModalPic } from './variables';
 import { openPopup } from './modal';
-import { deleteCard, addLikeCard, deleteLikeCard, responseCheckWithNoData, responseCheck } from './api';
+import { deleteCard, addLikeCard, deleteLikeCard, responseCheck } from './api';
 
 //---------------------------------- Добавление карточки--------------------------------
 //Создание карточки
@@ -65,7 +65,6 @@ export function clickLikeButton(cardLikeButton, cardLikeCount, cardId) {
       cardLikeCount.textContent = res.likes.length;
       cardLikeButton.classList.remove('card__button_state_active');
     })
-    .then(responseCheckWithNoData)
     .catch(err => console.error(err))
   } else {
     addLikeCard(cardId)
