@@ -1,6 +1,6 @@
 import 'core-js/es/symbol';
 import 'core-js/es/object';
-import { API_URL, token } from './variables';
+import { API_URL, token } from '../utils/variables';
 
 export const config = {
   baseUrl: `${API_URL}`,
