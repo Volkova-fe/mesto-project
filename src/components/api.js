@@ -20,6 +20,7 @@ export default class Api {
       return Promise.reject(`Ошибка: code ${res.status}`) // catch
     }
   };
+
 //Получить начальные данные о пользователе
   getInfoProfile = () => {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -27,6 +28,7 @@ export default class Api {
     })
     .then(this._responseCheck)
   };
+
 //Отредактировать данные о пользователе
   editInfoProfile = (name, about) => {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -39,17 +41,19 @@ export default class Api {
     })
     .then(this._responseCheck)
   };
+
 //Отредактировать аватар пользователя
-  editAvatarProfile = (avatarLink) => {
+  editAvatarProfile = (link) => {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       body: JSON.stringify({
-        avatar: avatarLink
+        avatar: link,
       }),
       headers: this._headers,
     })
     .then(this._responseCheck)
   };
+
 //Получить начальные карточки
   getInitialCards = () => {
     return fetch(`${this._baseUrl}/cards`, {
@@ -57,17 +61,19 @@ export default class Api {
     })
     .then(this._responseCheck)
   };
+
 //Добавить новую карточку
   addNewCards = (data) => {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       body: JSON.stringify({
         name: data.name,
-        link: data.linl,
+        link: data.link,
       }),
       headers: this._headers,
     })
   };
+
 //Удалить карточку
   deleteCard = (cardid) => {
     return fetch(`${this._baseUrl}/cards/${cardid}`, {
@@ -83,6 +89,7 @@ export default class Api {
       headers: this._headers,
     })
   };
+
   //удалить лайк карточке
   deleteLikeCard = (cardid) => {
     return fetch(`${this._baseUrl}/cards/likes/${cardid}`, {
