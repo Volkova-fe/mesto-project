@@ -12,10 +12,13 @@ export default class UserInfo {
       avatarLink: this._avatarLink.src
     }
   };
-  
-  addUserInfo(data) {
-    this._nameInput.textContent = data.name;
-    this._aboutInput.textContent = data.about;
-    this._avatarLink.src = data.avatar;
+
+  addUserInfo(name, about) {
+    this._nameInput.textContent = name;
+    this._aboutInput.textContent = about;
+  };
+
+  addUserAvatar(avatar) {
+    this._avatarLink.src = avatar;
   };
 }
