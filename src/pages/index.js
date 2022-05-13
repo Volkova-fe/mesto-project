@@ -57,14 +57,13 @@ const popupFormProfileEdit = new PopupWithForm(modalProfile,
       })
   }, profileform);
 
-  //==================Редактирование аватара================= Не работает
+  //==================Редактирование аватара=================
 const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
   function handleFormSubmit(data) {
     popupFormAvatarEdit.renderLoading(true);
-    api.editAvatarProfile(data.avatar)
+    api.editAvatarProfile(data.link)
       .then((user) => {
         userInfo.addUserAvatar(user.avatar);
-        console.log(userInfo.addUserAvatar(user.avatar))
         popupFormAvatarEdit.close();
       })
       .catch((err) => console.error(err))
