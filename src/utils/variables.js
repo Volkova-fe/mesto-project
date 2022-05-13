@@ -33,10 +33,7 @@ export const closeButtonCard = document.querySelector('#close_popupCard');
 export const imageModalPic = modalPic.querySelector('.popup__image');
 export const titleModalPic = modalPic.querySelector('.popup__title');
 
-//-------------------------------------------------------------------
-
-export const API_URL = 'https://nomoreparties.co/v1/plus-cohort-9';
-export const token = '7c830fbc-53f4-4c63-a7ce-3acd53d5bb5b';
+//------------------------------------------------------------------
 
 export const validationSettings = ({
   formSelector: '.popup__form',
