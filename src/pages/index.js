@@ -42,7 +42,7 @@ Promise.all([api.getInfoProfile(), api.getInitialCards()])
     console.log(err);
   });
 
-  //==================Редактирование профиля=================
+//==================Редактирование профиля=================
 const popupFormProfileEdit = new PopupWithForm(modalProfile,
   function handleFormSubmit(data) {
     popupFormProfileEdit.renderLoading(true);
@@ -57,7 +57,7 @@ const popupFormProfileEdit = new PopupWithForm(modalProfile,
       })
   }, profileform);
 
-  //==================Редактирование аватара=================
+//==================Редактирование аватара=================
 const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
   function handleFormSubmit(data) {
     popupFormAvatarEdit.renderLoading(true);
@@ -74,7 +74,7 @@ const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
 
 //==================Создание карточек========================
 function renderCard(item) {
-  const newCard = new Card(item, { selector: '#cards__template' }).generateCard();
+  const newCard = new Card(item, { selector: '#cards__template' }, api).generateCard();
   return newCard;
 }
 
