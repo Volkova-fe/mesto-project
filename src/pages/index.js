@@ -74,7 +74,7 @@ const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
 
 //==================Создание карточек========================
 function renderCard(item) {
-  const newCard = new Card(item, { selector: '#cards__template' }, api).generateCard();
+  const newCard = new Card(item, { selector: '#cards__template' }, api, user).generateCard();
   return newCard;
 }
 

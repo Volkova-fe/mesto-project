@@ -1,12 +1,14 @@
 
 export default class Card {
-  constructor(card, selector, api) {
+  constructor(card, selector, api, user) {
     this._image = card.link;
     this._name = card.name;
     this._selector = selector;
     this._likes = card.likes;
     this._api = api;
     this._id = card._id;
+    this._userID = user._id;
+
   }
   //клонирование темплейта
   _getTemplate() {
@@ -25,8 +27,8 @@ export default class Card {
     this._likeCounter = this._element.querySelector('.card__count-likes');
     if (this._likes.length > 0) this._likeCounter.textContent = this._likes.length
     else this._likeCounter.textContent = '0';
+    this._checkLike(this._likes);
     this._setEventListener();
-
 
     return this._element;
   }
@@ -43,7 +45,7 @@ export default class Card {
       this._api
         .deleteLikeCard(this._id)
         .then((data) => {
-          this._likeCounter.textContent = this._likes.length;
+          this._likeCounter.textContent = data.likes.length;
           likeButton.classList.remove('card__button_state_active');
         })
         .catch((err) => console.log(err));
@@ -51,10 +53,16 @@ export default class Card {
       this._api
         .addLikeCard(this._id)
         .then((data) => {
-          this._likeCounter.textContent = this._likes.length;
+          this._likeCounter.textContent = data.likes.length;
           likeButton.classList.add('card__button_state_active');
         })
         .catch((err) => console.log(err));
     }
+  }
+
+  _checkLike(likes) {
+    this.likeButton = this._element.querySelector('#like_card');
+    const myLike = (element) => element._id === this._userID;
+    if (likes.some(myLike)) { this.likeButton.classList.add('card__button_state_active') }
   }
 }
