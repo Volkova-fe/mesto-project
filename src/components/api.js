@@ -2,9 +2,9 @@ import 'core-js/es/symbol';
 import 'core-js/es/object';
 
 export default class Api {
-  constructor({baseUrl, headers}) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
-    this._headers =  headers;
+    this._headers = headers;
   };
 
   _responseCheck = res => {
@@ -21,15 +21,15 @@ export default class Api {
     }
   };
 
-//Получить начальные данные о пользователе
+  //Получить начальные данные о пользователе
   getInfoProfile = () => {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-    .then(this._responseCheck)
+      .then(this._responseCheck)
   };
 
-//Отредактировать данные о пользователе
+  //Отредактировать данные о пользователе
   editInfoProfile = (name, about) => {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
@@ -39,10 +39,10 @@ export default class Api {
       }),
       headers: this._headers,
     })
-    .then(this._responseCheck)
+      .then(this._responseCheck)
   };
 
-//Отредактировать аватар пользователя
+  //Отредактировать аватар пользователя
   editAvatarProfile = (link) => {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
@@ -51,18 +51,18 @@ export default class Api {
       }),
       headers: this._headers,
     })
-    .then(this._responseCheck)
+      .then(this._responseCheck)
   };
 
-//Получить начальные карточки
+  //Получить начальные карточки
   getInitialCards = () => {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     })
-    .then(this._responseCheck)
+      .then(this._responseCheck)
   };
 
-//Добавить новую карточку
+  //Добавить новую карточку
   addNewCards = (data) => {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
@@ -72,14 +72,16 @@ export default class Api {
       }),
       headers: this._headers,
     })
+      .then(this._responseCheck)
   };
 
-//Удалить карточку
+  //Удалить карточку
   deleteCard = (cardid) => {
     return fetch(`${this._baseUrl}/cards/${cardid}`, {
       method: 'DELETE',
       headers: this._headers,
     })
+      .then(this._responseCheck)
   };
 
   //Добавить лайка карточке
@@ -88,6 +90,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     })
+      .then(this._responseCheck)
   };
 
   //удалить лайк карточке
@@ -96,10 +99,11 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
+      .then(this._responseCheck)
   };
 }
 
-export const api = new Api ({
+export const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-9',
   headers: {
     authorization: '7c830fbc-53f4-4c63-a7ce-3acd53d5bb5b',
