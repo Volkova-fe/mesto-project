@@ -1,6 +1,6 @@
 
 export default class Card {
-  constructor(card, selector, api, user) {
+  constructor(card, selector, api, user, handleCardClick) {
     this._image = card.link;
     this._name = card.name;
     this._selector = selector;
@@ -8,6 +8,7 @@ export default class Card {
     this._api = api;
     this._id = card._id;
     this._userID = user._id;
+    this._handleCardClick = handleCardClick;
 
   }
   //клонирование темплейта
@@ -32,10 +33,13 @@ export default class Card {
 
     return this._element;
   }
-  //слушатель лайка
+  //слушатели
   _setEventListener() {
     this._element.querySelector('#like_card').addEventListener('click', () => {
       this._likeSwitch();
+    });
+    this._element.querySelector('.card__pic').addEventListener('click', () => {
+      this._handleCardClick(this._name, this._image);
     });
   }
   //лайк
