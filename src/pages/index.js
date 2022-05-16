@@ -104,6 +104,8 @@ function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
+
+
 //=====================Валидация========================
 
 
