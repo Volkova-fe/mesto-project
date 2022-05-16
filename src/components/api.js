@@ -63,12 +63,12 @@ export default class Api {
   };
 
   //Добавить новую карточку
-  addNewCards = (name, link) => {
+  addNewCards = (data) => {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name: data.name,
+        link: data.link,
       }),
       headers: this._headers,
     })

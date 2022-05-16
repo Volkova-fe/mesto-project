@@ -77,14 +77,14 @@ const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
       })
   }, avatarForm);
 
-//==============Добавление новой карточки=================== не работает
+//==============Добавление новой карточки===================
 
 const popupFormNewCard = new PopupWithForm(modalCard,
   function handleFormSubmit(data) {
     popupFormNewCard.renderLoading(true);
-    api.addNewCards(data.link, data.name)
+    api.addNewCards(data)
       .then((cards) => {
-        cardList.renderItems(cards);
+        cardList.addItem(renderCard(cards));;
         popupFormNewCard.close();
       })
       .catch((err) => console.error(err))
