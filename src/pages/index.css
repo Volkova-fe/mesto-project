@@ -53,3 +53,5 @@
 @import url("../blocks/popup/__input-error/_active/popup__input-error_active.css");
 @import url("../blocks/popup/__set/popup__set.css");
 @import url("../blocks/popup/__field/popup__field.css");
+@import url("../blocks/popup/__heading/_style/popup__heading_style_popupDelete.css");
+@import url("../blocks/popup/__container/_position/popup__container_position_top.css");
