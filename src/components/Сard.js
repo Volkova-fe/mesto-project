@@ -9,6 +9,7 @@ export default class Card {
     this._id = card._id;
     this._userID = user._id;
     this._handleCardClick = handleCardClick;
+    this._owner = card.owner._id;
 
   }
   //клонирование темплейта
@@ -30,6 +31,10 @@ export default class Card {
     else this._likeCounter.textContent = '0';
     this._checkLike(this._likes);
     this._setEventListener();
+
+    if (this._owner !== this._userID) {
+      this._element.querySelector('.card__remove').classList.add('card__remove_hidden');
+    }
 
     return this._element;
   }

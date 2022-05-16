@@ -35,8 +35,7 @@ export const titleModalPic = modalPic.querySelector('.popup__title');
 
 //------------------------------------------------------------------
 
-export const validationSettings = ({
-  formSelector: '.popup__form',
+export const options = ({
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',

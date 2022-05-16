@@ -1,19 +1,20 @@
 import '../pages/index.css';
 import 'core-js/es/symbol';
 
-import { api, } from "../components/Api";
+import { api, } from '../components/Api';
 
 import UserInfo from '../components/UserInfo';
-import Section from "../components/Section"
-import Card from "../components/Сard"
-import PopupWithForm from "../components/PopupWithForm"
-import PopupWithImage from "../components/PopupWithImage"
+import Section from '../components/Section'
+import Card from '../components/Сard'
+import PopupWithForm from '../components/PopupWithForm'
+import PopupWithImage from '../components/PopupWithImage'
+import FormValidator from '../components/FormValidator'
 
 import {
   addButton, editAvatarButton, editButton,
   modalProfile, modalCard, modalAvatar,
   nameProfile, profProfile, profileform,
-  avatarForm, modalPic, cardForm
+  avatarForm, modalPic, cardForm, options
 } from "../utils/variables";
 
 //===================================================================
@@ -46,7 +47,7 @@ Promise.all([api.getInfoProfile(), api.getInitialCards()])
   .catch((err) => {
     console.log(err);
   });
-console.log(api.getInitialCards())
+
 //==================Редактирование профиля=================
 const popupFormProfileEdit = new PopupWithForm(modalProfile,
   function handleFormSubmit(data) {
@@ -102,6 +103,17 @@ function renderCard(item) {
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
+
+//=====================Валидация========================
+
+
+const avatarValidator = new FormValidator(options, avatarForm);
+avatarValidator._validation();
+const profileValidator = new FormValidator(options, profileform);
+profileValidator._validation();
+const addCardValidator = new FormValidator(options, cardForm);
+addCardValidator._validation();
+
 
 //==============Слушатели=====================================
 addButton.addEventListener('click', () => {
