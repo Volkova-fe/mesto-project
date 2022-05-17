@@ -1,7 +1,6 @@
 export default class FormValidator {
   constructor(options, formItem) {
     this._formItem = formItem;
-    this._options = options;
     this._inputErrorClass = options.inputErrorClass;
     this._errorClass = options.errorClass;
     this._inputSelector = options.inputSelector;
@@ -70,7 +69,7 @@ export default class FormValidator {
     });
   }
 
-  _validation() {
+  enableValidation() {
     this._formItem.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
