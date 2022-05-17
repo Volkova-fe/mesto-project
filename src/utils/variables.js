@@ -6,6 +6,7 @@ export const modalCard = document.querySelector('.popup__card');
 export const modalPic = document.querySelector('.popup__pic');
 export const modalAvatar = document.querySelector('.popup__avatar');
 export const closeButtonPic = document.querySelector('#close_popupPic');
+export const modalDelete = document.querySelector('.popup__delete');
 //-------------------------------------------------------------------
 export const profileform = document.querySelector('#edit_profile');
 export const nameProfile = document.querySelector('#name');
@@ -32,6 +33,8 @@ export const cardLikeButtom = document.querySelector('#like_card');
 export const closeButtonCard = document.querySelector('#close_popupCard');
 export const imageModalPic = modalPic.querySelector('.popup__image');
 export const titleModalPic = modalPic.querySelector('.popup__title');
+export const deleteForm = document.querySelector('#deleteForm');
+
 
 //------------------------------------------------------------------
 

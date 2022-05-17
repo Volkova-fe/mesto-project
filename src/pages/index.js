@@ -9,12 +9,13 @@ import Card from '../components/Сard'
 import PopupWithForm from '../components/PopupWithForm'
 import PopupWithImage from '../components/PopupWithImage'
 import FormValidator from '../components/FormValidator'
+import PopupDeleteCard from '../components/PopupDeleteCard';
 
 import {
   addButton, editAvatarButton, editButton,
-  modalProfile, modalCard, modalAvatar,
+  modalProfile, modalCard, modalAvatar, modalDelete,
   nameProfile, profProfile, profileform,
-  avatarForm, modalPic, cardForm, options
+  avatarForm, modalPic, cardForm, options, deleteForm
 } from "../utils/variables";
 
 //===================================================================
@@ -94,14 +95,35 @@ const popupFormNewCard = new PopupWithForm(modalCard,
       })
   }, cardForm);
 
+//==================Удаление карточки=================
+
+const popupDeleteCard = new PopupDeleteCard(modalDelete,
+  function handleFormSubmit(evt) {
+    evt.preventDefault();
+    api.deleteCard(popupDeleteCard._id)
+      .then(() => popupDeleteCard.card.remove())
+
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupDeleteCard.close();
+      });
+  });
+
 //==================Создание карточек========================
 function renderCard(item) {
-  const newCard = new Card(item, { selector: '#cards__template' }, api, user, handleCardClick).generateCard();
+  const newCard = new Card(item, { selector: '#cards__template' }, api, user, handleCardClick,
+    handleCardDelete).generateCard();
   return newCard;
 }
 
 function handleCardClick(name, link) {
+  console.log(popupWithImage)
   popupWithImage.open(name, link);
+}
+
+function handleCardDelete(id, card) {
+  console.log(popupDeleteCard)
+  popupDeleteCard.open(id, card);
 }
 
 
