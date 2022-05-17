@@ -1,18 +1,21 @@
 
 export default class Card {
   constructor(card, selector, api, user, handleCardClick, handleCardDelete) {
+    this._selector = selector;
     this._image = card.link;
     this._name = card.name;
-    this._selector = selector;
     this._likes = card.likes;
+
     this._api = api;
     this._id = card._id;
     this._userID = user._id;
-    this._handleCardClick = handleCardClick;
     this._owner = card.owner._id;
-    this.handleCardDelete = handleCardDelete;
+
+    this._handleCardDelete = handleCardDelete;
+    this._handleCardClick = handleCardClick;
 
   }
+  
   //клонирование темплейта
   _getTemplate() {
     return document
@@ -20,16 +23,21 @@ export default class Card {
       .content.querySelector('.card')
       .cloneNode(true);
   }
+
   //создание карточки
   generateCard() {
     this._element = this._getTemplate();
     const image = this._element.querySelector('.card__pic');
+
     image.src = this._image;
     image.alt = this._name;
+
     this._element.querySelector('.card__title').textContent = this._name;
     this._likeCounter = this._element.querySelector('.card__count-likes');
+
     if (this._likes.length > 0) this._likeCounter.textContent = this._likes.length
     else this._likeCounter.textContent = '0';
+
     this._checkLike(this._likes);
     this._setEventListener();
 
@@ -39,6 +47,7 @@ export default class Card {
 
     return this._element;
   }
+
   //слушатели
   _setEventListener() {
     this._element.querySelector('#like_card').addEventListener('click', () => {
@@ -48,13 +57,13 @@ export default class Card {
       this._handleCardClick(this._name, this._image);
     });
     this._element.querySelector('.card__remove').addEventListener("click", () => {
-      this.handleCardDelete(this._id, this._element)
-      console.log(this._id)
+      this._handleCardDelete(this._id, this._element);
     });
   }
   //лайк
   _likeSwitch() {
     const likeButton = this._element.querySelector('#like_card');
+
     if (likeButton.classList.contains('card__button_state_active')) {
       this._api
         .deleteLikeCard(this._id)
@@ -77,6 +86,7 @@ export default class Card {
   _checkLike(likes) {
     this.likeButton = this._element.querySelector('#like_card');
     const myLike = (element) => element._id === this._userID;
+
     if (likes.some(myLike)) { this.likeButton.classList.add('card__button_state_active') }
   }
 }

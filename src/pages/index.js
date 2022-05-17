@@ -98,17 +98,17 @@ const popupDeleteCard = new PopupDeleteCard(modalDelete,
       .catch((err) => console.log(err))
   });
 
-  //==================Получение данных профиля и карточек с апи======
+//==================Получение данных профиля и карточек с апи======
 Promise.all([api.getInfoProfile(), api.getInitialCards()])
-.then(([userData, cards]) => {
-  user = userData;
-  userInfo.setUserInfo(user.name, user.about);
-  userInfo.addUserAvatar(user.avatar);
-  cardList.renderItems(cards);
-})
-.catch((err) => {
-  console.log(err);
-});
+  .then(([userData, cards]) => {
+    user = userData;
+    userInfo.setUserInfo(user.name, user.about);
+    userInfo.addUserAvatar(user.avatar);
+    cardList.renderItems(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 //==================Создание карточек========================
 function renderCard(item) {
@@ -127,9 +127,9 @@ function handleCardDelete(id, card) {
 
 //=====================Валидация========================
 
-avatarValidator._validation();
-profileValidator._validation();
-addCardValidator._validation();
+avatarValidator.enableValidation();
+profileValidator.enableValidation();
+addCardValidator.enableValidation();
 
 //==============Слушатели=====================================
 addButton.addEventListener('click', () => {

@@ -35,7 +35,6 @@ export const imageModalPic = modalPic.querySelector('.popup__image');
 export const titleModalPic = modalPic.querySelector('.popup__title');
 export const deleteForm = document.querySelector('#deleteForm');
 
-
 //------------------------------------------------------------------
 
 export const options = ({

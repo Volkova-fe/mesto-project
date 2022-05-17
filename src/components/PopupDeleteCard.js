@@ -11,7 +11,6 @@ export default class PopupDeleteCard extends Popup {
     super.setEventListeners();
   }
 
-
   open(id, card) {
     this._id = id;
     this.card = card;
