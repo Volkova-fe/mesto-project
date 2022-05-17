@@ -1,6 +1,6 @@
 
 export default class Card {
-  constructor(card, selector, api, user, handleCardClick) {
+  constructor(card, selector, api, user, handleCardClick, handleCardDelete) {
     this._image = card.link;
     this._name = card.name;
     this._selector = selector;
@@ -9,6 +9,8 @@ export default class Card {
     this._id = card._id;
     this._userID = user._id;
     this._handleCardClick = handleCardClick;
+    this._owner = card.owner._id;
+    this.handleCardDelete = handleCardDelete;
 
   }
   //клонирование темплейта
@@ -31,6 +33,10 @@ export default class Card {
     this._checkLike(this._likes);
     this._setEventListener();
 
+    if (this._owner !== this._userID) {
+      this._element.querySelector('.card__remove').classList.add('card__remove_hidden');
+    }
+
     return this._element;
   }
   //слушатели
@@ -40,6 +46,10 @@ export default class Card {
     });
     this._element.querySelector('.card__pic').addEventListener('click', () => {
       this._handleCardClick(this._name, this._image);
+    });
+    this._element.querySelector('.card__remove').addEventListener("click", () => {
+      this.handleCardDelete(this._id, this._element)
+      console.log(this._id)
     });
   }
   //лайк

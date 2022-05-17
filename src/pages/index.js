@@ -1,19 +1,21 @@
 import '../pages/index.css';
 import 'core-js/es/symbol';
 
-import { api, } from "../components/Api";
+import { api, } from '../components/Api';
 
 import UserInfo from '../components/UserInfo';
-import Section from "../components/Section"
-import Card from "../components/Сard"
-import PopupWithForm from "../components/PopupWithForm"
-import PopupWithImage from "../components/PopupWithImage"
+import Section from '../components/Section'
+import Card from '../components/Сard'
+import PopupWithForm from '../components/PopupWithForm'
+import PopupWithImage from '../components/PopupWithImage'
+import FormValidator from '../components/FormValidator'
+import PopupDeleteCard from '../components/PopupDeleteCard';
 
 import {
   addButton, editAvatarButton, editButton,
-  modalProfile, modalCard, modalAvatar,
+  modalProfile, modalCard, modalAvatar, modalDelete,
   nameProfile, profProfile, profileform,
-  avatarForm, modalPic, cardForm
+  avatarForm, modalPic, cardForm, options
 } from "../utils/variables";
 
 //===================================================================
@@ -32,21 +34,12 @@ const cardList = new Section(
   '.cards__container'
 );
 
+const popupWithImage = new PopupWithImage(modalPic);
 
-const popupWithImage = new PopupWithImage(modalPic)
+const avatarValidator = new FormValidator(options, avatarForm);
+const profileValidator = new FormValidator(options, profileform);
+const addCardValidator = new FormValidator(options, cardForm);
 
-//==================Получение данных профиля и карточек с апи======
-Promise.all([api.getInfoProfile(), api.getInitialCards()])
-  .then(([userData, cards]) => {
-    user = userData;
-    userInfo.setUserInfo(user.name, user.about);
-    userInfo.addUserAvatar(user.avatar);
-    cardList.renderItems(cards);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-console.log(api.getInitialCards())
 //==================Редактирование профиля=================
 const popupFormProfileEdit = new PopupWithForm(modalProfile,
   function handleFormSubmit(data) {
@@ -93,9 +86,34 @@ const popupFormNewCard = new PopupWithForm(modalCard,
       })
   }, cardForm);
 
+//==================Удаление карточки=================
+
+const popupDeleteCard = new PopupDeleteCard(modalDelete,
+  function handleFormSubmit() {
+    api.deleteCard(popupDeleteCard._id)
+      .then(() => {
+        popupDeleteCard.card.remove();
+        popupDeleteCard.close();
+      })
+      .catch((err) => console.log(err))
+  });
+
+  //==================Получение данных профиля и карточек с апи======
+Promise.all([api.getInfoProfile(), api.getInitialCards()])
+.then(([userData, cards]) => {
+  user = userData;
+  userInfo.setUserInfo(user.name, user.about);
+  userInfo.addUserAvatar(user.avatar);
+  cardList.renderItems(cards);
+})
+.catch((err) => {
+  console.log(err);
+});
+
 //==================Создание карточек========================
 function renderCard(item) {
-  const newCard = new Card(item, { selector: '#cards__template' }, api, user, handleCardClick).generateCard();
+  const newCard = new Card(item, { selector: '#cards__template' }, api, user, handleCardClick,
+    handleCardDelete).generateCard();
   return newCard;
 }
 
@@ -103,23 +121,36 @@ function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
+function handleCardDelete(id, card) {
+  popupDeleteCard.open(id, card);
+}
+
+//=====================Валидация========================
+
+avatarValidator._validation();
+profileValidator._validation();
+addCardValidator._validation();
+
 //==============Слушатели=====================================
 addButton.addEventListener('click', () => {
   popupFormNewCard.open();
+  addCardValidator.resetFormValidation();
 });
 
 editAvatarButton.addEventListener('click', () => {
   popupFormAvatarEdit.open();
+  avatarValidator.resetFormValidation();
 });
 
 editButton.addEventListener('click', () => {
   nameProfile.value = userInfo.getUserInfo().name;
   profProfile.value = userInfo.getUserInfo().about;
   popupFormProfileEdit.open();
+  profileValidator.resetFormValidation();
 });
-
 
 popupFormProfileEdit.setEventListeners();
 popupFormAvatarEdit.setEventListeners();
 popupWithImage.setEventListeners();
 popupFormNewCard.setEventListeners();
+popupDeleteCard.setEventListeners();
