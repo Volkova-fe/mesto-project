@@ -15,7 +15,7 @@ import {
   addButton, editAvatarButton, editButton,
   modalProfile, modalCard, modalAvatar, modalDelete,
   nameProfile, profProfile, profileform,
-  avatarForm, modalPic, cardForm, options, deleteForm
+  avatarForm, modalPic, cardForm, options
 } from "../utils/variables";
 
 //===================================================================
@@ -98,15 +98,13 @@ const popupFormNewCard = new PopupWithForm(modalCard,
 //==================Удаление карточки=================
 
 const popupDeleteCard = new PopupDeleteCard(modalDelete,
-  function handleFormSubmit(evt) {
-    evt.preventDefault();
+  function handleFormSubmit() {
     api.deleteCard(popupDeleteCard._id)
-      .then(() => popupDeleteCard.card.remove())
-
-      .catch((err) => console.log(err))
-      .finally(() => {
+      .then(() => {
+        popupDeleteCard.card.remove();
         popupDeleteCard.close();
-      });
+      })
+      .catch((err) => console.log(err))
   });
 
 //==================Создание карточек========================
@@ -117,19 +115,14 @@ function renderCard(item) {
 }
 
 function handleCardClick(name, link) {
-  console.log(popupWithImage)
   popupWithImage.open(name, link);
 }
 
 function handleCardDelete(id, card) {
-  console.log(popupDeleteCard)
   popupDeleteCard.open(id, card);
 }
 
-
-
 //=====================Валидация========================
-
 
 const avatarValidator = new FormValidator(options, avatarForm);
 avatarValidator._validation();
@@ -154,8 +147,8 @@ editButton.addEventListener('click', () => {
   popupFormProfileEdit.open();
 });
 
-
 popupFormProfileEdit.setEventListeners();
 popupFormAvatarEdit.setEventListeners();
 popupWithImage.setEventListeners();
 popupFormNewCard.setEventListeners();
+popupDeleteCard.setEventListeners();
