@@ -1,6 +1,7 @@
 export default class FormValidator {
   constructor(options, formItem) {
     this._formItem = formItem;
+    this._options = options;
     this._inputErrorClass = options.inputErrorClass;
     this._errorClass = options.errorClass;
     this._inputSelector = options.inputSelector;
@@ -22,7 +23,6 @@ export default class FormValidator {
   }
 
   _hideInputError(inputItem) {
-
     const errorElement = this._formItem.querySelector(`#${inputItem.id}-error`);
     inputItem.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
@@ -60,6 +60,13 @@ export default class FormValidator {
         this._checkInputValidity(inputItem);
         this._toggleButtonState();
       });
+    });
+  }
+
+  resetFormValidation() {
+    this._buttonClass.classList.add(this._inactiveButtonClass);
+    this._inputs.forEach((input) => {
+      this._hideInputError(input)
     });
   }
 

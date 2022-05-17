@@ -34,20 +34,11 @@ const cardList = new Section(
   '.cards__container'
 );
 
+const popupWithImage = new PopupWithImage(modalPic);
 
-const popupWithImage = new PopupWithImage(modalPic)
-
-//==================Получение данных профиля и карточек с апи======
-Promise.all([api.getInfoProfile(), api.getInitialCards()])
-  .then(([userData, cards]) => {
-    user = userData;
-    userInfo.setUserInfo(user.name, user.about);
-    userInfo.addUserAvatar(user.avatar);
-    cardList.renderItems(cards);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const avatarValidator = new FormValidator(options, avatarForm);
+const profileValidator = new FormValidator(options, profileform);
+const addCardValidator = new FormValidator(options, cardForm);
 
 //==================Редактирование профиля=================
 const popupFormProfileEdit = new PopupWithForm(modalProfile,
@@ -107,6 +98,18 @@ const popupDeleteCard = new PopupDeleteCard(modalDelete,
       .catch((err) => console.log(err))
   });
 
+  //==================Получение данных профиля и карточек с апи======
+Promise.all([api.getInfoProfile(), api.getInitialCards()])
+.then(([userData, cards]) => {
+  user = userData;
+  userInfo.setUserInfo(user.name, user.about);
+  userInfo.addUserAvatar(user.avatar);
+  cardList.renderItems(cards);
+})
+.catch((err) => {
+  console.log(err);
+});
+
 //==================Создание карточек========================
 function renderCard(item) {
   const newCard = new Card(item, { selector: '#cards__template' }, api, user, handleCardClick,
@@ -124,27 +127,26 @@ function handleCardDelete(id, card) {
 
 //=====================Валидация========================
 
-const avatarValidator = new FormValidator(options, avatarForm);
 avatarValidator._validation();
-const profileValidator = new FormValidator(options, profileform);
 profileValidator._validation();
-const addCardValidator = new FormValidator(options, cardForm);
 addCardValidator._validation();
-
 
 //==============Слушатели=====================================
 addButton.addEventListener('click', () => {
   popupFormNewCard.open();
+  addCardValidator.resetFormValidation();
 });
 
 editAvatarButton.addEventListener('click', () => {
   popupFormAvatarEdit.open();
+  avatarValidator.resetFormValidation();
 });
 
 editButton.addEventListener('click', () => {
   nameProfile.value = userInfo.getUserInfo().name;
   profProfile.value = userInfo.getUserInfo().about;
   popupFormProfileEdit.open();
+  profileValidator.resetFormValidation();
 });
 
 popupFormProfileEdit.setEventListeners();
