@@ -13,14 +13,15 @@ export default class UserInfo {
     }
   };
 
-  setUserInfo(name, about) {
+  setUserInfo({ name, about, avatar, _id }) {
     this._nameInput.textContent = name;
     this._aboutInput.textContent = about;
-  };
-
-  addUserAvatar(avatar) {
     this._avatarLink.src = avatar;
   };
+
+  /*   addUserAvatar(avatar) {
+      this._avatarLink.src = avatar;
+    }; */
 }
 
 /*Можно лучше

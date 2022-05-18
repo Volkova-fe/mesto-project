@@ -27,6 +27,7 @@ const userInfo = new UserInfo({
   avatarLink: '.profile__avatar'
 });
 
+
 const cardList = new Section(
   {
     renderer: (item) => renderCard(item),
@@ -36,9 +37,28 @@ const cardList = new Section(
 
 const popupWithImage = new PopupWithImage(modalPic);
 
-const avatarValidator = new FormValidator(options, avatarForm);
+/* const avatarValidator = new FormValidator(options, avatarForm);
 const profileValidator = new FormValidator(options, profileform);
-const addCardValidator = new FormValidator(options, cardForm);
+const addCardValidator = new FormValidator(options, cardForm); */
+
+const formValidators = {}
+
+// Включение валидации
+const enableValidation = (options) => {
+  const formList = Array.from(document.querySelectorAll(options.formSelector))
+  formList.forEach((formItem) => {
+    const validator = new FormValidator(formItem, options)
+    // получаем данные из атрибута `name` у формы
+    const formName = formItem.getAttribute('name')
+
+    // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(options);
+
 
 //==================Редактирование профиля=================
 const popupFormProfileEdit = new PopupWithForm(modalProfile,
@@ -103,8 +123,9 @@ Promise.all([api.getInfoProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
     user = userData;
     userInfo.setUserInfo(user.name, user.about, user.avatar);
-    userInfo.addUserAvatar(user.avatar);
+    /* userInfo.addUserAvatar(user.avatar); */
     cardList.renderItems(cards);
+
   })
   .catch((err) => {
     console.log(err);
@@ -127,9 +148,9 @@ function handleCardDelete(id, card) {
 
 //=====================Валидация========================
 
-avatarValidator.enableValidation();
+/* avatarValidator.enableValidation();
 profileValidator.enableValidation();
-addCardValidator.enableValidation();
+addCardValidator.enableValidation(); */
 
 //==============Слушатели=====================================
 addButton.addEventListener('click', () => {
@@ -155,6 +176,8 @@ popupFormAvatarEdit.setEventListeners();
 popupWithImage.setEventListeners();
 popupFormNewCard.setEventListeners();
 popupDeleteCard.setEventListeners();
+
+
 
 /*Можно лучше
 
