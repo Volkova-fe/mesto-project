@@ -8,7 +8,7 @@ export default class FormValidator {
       this._formItem.querySelectorAll(this._inputSelector)
     );
     this._submitButtonSelector = options.submitButtonSelector;
-    this._buttonClass = this._formItem.querySelector(
+    this._submitButton = this._formItem.querySelector(
       this._submitButtonSelector
     );
     this._inactiveButtonClass = options.inactiveButtonClass;
@@ -44,11 +44,11 @@ export default class FormValidator {
 
   _toggleButtonState() {
     if (this._invalidInput()) {
-      this._buttonClass.disabled = true;
-      this._buttonClass.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = true;
+      this._submitButton.classList.add(this._inactiveButtonClass);
     } else {
-      this._buttonClass.disabled = false;
-      this._buttonClass.classList.remove(this._inactiveButtonClass);
+      this._submitButton.disabled = false;
+      this._submitButton.classList.remove(this._inactiveButtonClass);
     }
   }
 
@@ -78,12 +78,8 @@ export default class FormValidator {
 
 }
 
-/*_buttonClass
 
-это не класс кнопки, а кнопка сабмита
 
-_submitButton
-*/
 /*this._buttonClass.classList.add(this._inactiveButtonClass);
 
 это нужно удалить
