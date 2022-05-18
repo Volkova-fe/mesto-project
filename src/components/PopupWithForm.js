@@ -1,8 +1,8 @@
 import Popup from "./Popup";
 
 export default class PopupWithForm extends Popup {
-  constructor(selector, handleFormSubmit, form) {
-    super(selector);
+  constructor(popup, handleFormSubmit, form) {
+    super(popup);
     this._handleFormSubmit = handleFormSubmit;
     this._form = form;
     this._popupSubmit = this._form.querySelector('.popup__button');
@@ -39,3 +39,16 @@ export default class PopupWithForm extends Popup {
     }
   }
 }
+
+/*Можно лучше
+
+Можно сделать метод setInputValues в классе PopupWithForm, который будет вставлять данные в инпуты:
+
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      // тут вставляем в `value` инпута данные из объекта по атрибуту `name` этого инпута
+      input.value = data[input.name];
+    });
+  }
+
+И не нужно будет искать эти инпуты в index.js и что-то вставлять в них при открытии профиля.*/

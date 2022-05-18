@@ -1,7 +1,7 @@
 import Popup from "./Popup";
 export default class PopupWithForm extends Popup {
-  constructor(selector) {
-    super(selector);
+  constructor(popup) {
+    super(popup);
     this._picName = document.querySelector('.popup__title');
     this._picLink = document.querySelector('.popup__image');
   }

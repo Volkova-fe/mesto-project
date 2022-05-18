@@ -63,7 +63,7 @@ export default class FormValidator {
   }
 
   resetFormValidation() {
-    this._buttonClass.classList.add(this._inactiveButtonClass);
+    this._toggleButtonState();
     this._inputs.forEach((input) => {
       this._hideInputError(input)
     });
@@ -77,3 +77,23 @@ export default class FormValidator {
   }
 
 }
+
+/*_buttonClass
+
+это не класс кнопки, а кнопка сабмита
+
+_submitButton
+*/
+/*this._buttonClass.classList.add(this._inactiveButtonClass);
+
+это нужно удалить
+
+Вы тут просто делаете кнопку серой, а нужно вызывать _toggleButtonState
+
+Не нужно дублировать код управления кнопкой
+
+  resetFormValidation() {
+    this._toggleButtonState();
+
+    this._inputs.forEach((input) => {
+_toggleButtonState деактивирует кнопку сабмита без проблем тут*/

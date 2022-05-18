@@ -61,7 +61,7 @@ const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
     popupFormAvatarEdit.renderLoading(true);
     api.editAvatarProfile(data.link)
       .then((user) => {
-        userInfo.addUserAvatar(user.avatar);
+        userInfo.setUserInfo(user.avatar);
         popupFormAvatarEdit.close();
       })
       .catch((err) => console.error(err))
@@ -102,7 +102,7 @@ const popupDeleteCard = new PopupDeleteCard(modalDelete,
 Promise.all([api.getInfoProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
     user = userData;
-    userInfo.setUserInfo(user.name, user.about);
+    userInfo.setUserInfo(user.name, user.about, user.avatar);
     userInfo.addUserAvatar(user.avatar);
     cardList.renderItems(cards);
   })
@@ -112,7 +112,7 @@ Promise.all([api.getInfoProfile(), api.getInitialCards()])
 
 //==================Создание карточек========================
 function renderCard(item) {
-  const newCard = new Card(item, { selector: '#cards__template' }, api, user, handleCardClick,
+  const newCard = new Card({ selector: '#cards__template' }, item, api, user, handleCardClick,
     handleCardDelete).generateCard();
   return newCard;
 }
@@ -143,8 +143,9 @@ editAvatarButton.addEventListener('click', () => {
 });
 
 editButton.addEventListener('click', () => {
-  nameProfile.value = userInfo.getUserInfo().name;
-  profProfile.value = userInfo.getUserInfo().about;
+  const { name, about } = userInfo.getUserInfo()
+  nameProfile.value = name;
+  profProfile.value = about;
   popupFormProfileEdit.open();
   profileValidator.resetFormValidation();
 });
@@ -154,3 +155,31 @@ popupFormAvatarEdit.setEventListeners();
 popupWithImage.setEventListeners();
 popupFormNewCard.setEventListeners();
 popupDeleteCard.setEventListeners();
+
+/*Можно лучше
+
+Если будет интересно, можно универсально создать экземпляры валидаторов всех форм, поместив их все в один объект, а потом брать из него валидатор по атрибуту name, который задан для формы. Это очень универсально и для любого кол-ва форм подходит.
+
+const formValidators = {}
+
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(formElement, config)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+И теперь можно использовать валидаторы для деактивации кнопки и тд
+
+formValidators[ profileForm.getAttribute('name') ].resetValidation()
+
+// или можно использовать строку (ведь Вы знаете, какой атрибут `name` у каждой формы)
+formValidators['profile-form'].resetValidation()*/

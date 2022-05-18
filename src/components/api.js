@@ -7,16 +7,10 @@ export default class Api {
     this._headers = headers;
   };
 
-  _responseCheck = res => {
+  _checkResponse = res => {
     if (res.ok) {
       return res.json() // then
     } else {
-      return Promise.reject(`Ошибка: code ${res.status}`) // catch
-    }
-  };
-
-  _responseCheckWithNoData = res => {
-    if (!res.ok) {
       return Promise.reject(`Ошибка: code ${res.status}`) // catch
     }
   };
@@ -26,7 +20,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 
   //Отредактировать данные о пользователе
@@ -39,7 +33,7 @@ export default class Api {
       }),
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 
   //Отредактировать аватар пользователя
@@ -51,7 +45,7 @@ export default class Api {
       }),
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 
   //Получить начальные карточки
@@ -59,7 +53,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 
   //Добавить новую карточку
@@ -72,7 +66,7 @@ export default class Api {
       }),
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 
   //Удалить карточку
@@ -81,7 +75,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 
   //Добавить лайка карточке
@@ -90,7 +84,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 
   //удалить лайк карточке
@@ -99,7 +93,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 }
 
