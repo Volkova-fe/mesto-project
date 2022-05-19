@@ -5,7 +5,7 @@ export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-  };
+  }
 
   _checkResponse = res => {
     if (res.ok) {
@@ -13,7 +13,7 @@ export default class Api {
     } else {
       return Promise.reject(`Ошибка: code ${res.status}`) // catch
     }
-  };
+  }
 
   //Получить начальные данные о пользователе
   getInfoProfile = () => {
@@ -21,7 +21,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-  };
+  }
 
   //Отредактировать данные о пользователе
   editInfoProfile = (name, about) => {
@@ -34,7 +34,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-  };
+  }
 
   //Отредактировать аватар пользователя
   editAvatarProfile = (link) => {
@@ -46,7 +46,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-  };
+  }
 
   //Получить начальные карточки
   getInitialCards = () => {
@@ -54,7 +54,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-  };
+  }
 
   //Добавить новую карточку
   addNewCards = (data) => {
@@ -67,7 +67,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-  };
+  }
 
   //Удалить карточку
   deleteCard = (cardid) => {
@@ -76,7 +76,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-  };
+  }
 
   //Добавить лайка карточке
   addLikeCard = (cardid) => {
@@ -85,7 +85,7 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-  };
+  }
 
   //удалить лайк карточке
   deleteLikeCard = (cardid) => {

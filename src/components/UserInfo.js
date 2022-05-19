@@ -3,7 +3,7 @@ export default class UserInfo {
     this._nameInput = document.querySelector(nameInput);
     this._aboutInput = document.querySelector(aboutInput);
     this._avatarLink = document.querySelector(avatarLink);
-  };
+  }
 
   getUserInfo() {
     return {
@@ -11,22 +11,11 @@ export default class UserInfo {
       about: this._aboutInput.textContent,
       avatarLink: this._avatarLink.src
     }
-  };
+  }
 
-  setUserInfo({ name, about, avatar, _id }) {
-    this._nameInput.textContent = name;
-    this._aboutInput.textContent = about;
-    this._avatarLink.src = avatar;
-  };
-
-  /*   addUserAvatar(avatar) {
-      this._avatarLink.src = avatar;
-    }; */
+  setUserInfo(data) {
+    this._nameInput.textContent = data.name;
+    this._aboutInput.textContent = data.about;
+    this._avatarLink.src = data.avatar;
+  }
 }
-
-/*Можно лучше
-
-С сервера всегда приходят все 4 вида данных пользователя при любых
-изменениях профиля: имя, профессия, аватар и _id.
- Вот все эти 4 вида данных можно было устанавливать в классе
- UserInfo в одном методе setUserInfo({ name, about, avatar, _id })*/

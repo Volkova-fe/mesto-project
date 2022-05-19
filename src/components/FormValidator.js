@@ -33,14 +33,14 @@ export default class FormValidator {
       this._showInputError(inputItem, inputItem.validationMessage);
     } else {
       this._hideInputError(inputItem);
-    }
-  };
+    };
+  }
 
   _invalidInput() {
     return this._inputs.some((inputItem) => {
       return !inputItem.validity.valid;
-    })
-  };
+    });
+  }
 
   _toggleButtonState() {
     if (this._invalidInput()) {
@@ -49,7 +49,7 @@ export default class FormValidator {
     } else {
       this._submitButton.disabled = false;
       this._submitButton.classList.remove(this._inactiveButtonClass);
-    }
+    };
   }
 
   _setEventListeners() {
@@ -75,21 +75,4 @@ export default class FormValidator {
     });
     this._setEventListeners();
   }
-
 }
-
-
-
-/*this._buttonClass.classList.add(this._inactiveButtonClass);
-
-это нужно удалить
-
-Вы тут просто делаете кнопку серой, а нужно вызывать _toggleButtonState
-
-Не нужно дублировать код управления кнопкой
-
-  resetFormValidation() {
-    this._toggleButtonState();
-
-    this._inputs.forEach((input) => {
-_toggleButtonState деактивирует кнопку сабмита без проблем тут*/

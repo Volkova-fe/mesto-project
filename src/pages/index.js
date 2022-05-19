@@ -14,8 +14,7 @@ import PopupDeleteCard from '../components/PopupDeleteCard';
 import {
   addButton, editAvatarButton, editButton,
   modalProfile, modalCard, modalAvatar, modalDelete,
-  nameProfile, profProfile, profileform,
-  avatarForm, modalPic, cardForm, options
+  profileform, avatarForm, modalPic, cardForm, options
 } from "../utils/variables";
 
 //===================================================================
@@ -37,28 +36,20 @@ const cardList = new Section(
 
 const popupWithImage = new PopupWithImage(modalPic);
 
-/* const avatarValidator = new FormValidator(options, avatarForm);
-const profileValidator = new FormValidator(options, profileform);
-const addCardValidator = new FormValidator(options, cardForm); */
+//==================Валидация=================
 
 const formValidators = {}
-
-// Включение валидации
 const enableValidation = (options) => {
-  const formList = Array.from(document.querySelectorAll(options.formSelector))
+  const formList = Array.from(document.querySelectorAll(options.formSelector));
   formList.forEach((formItem) => {
-    const validator = new FormValidator(formItem, options)
-    // получаем данные из атрибута `name` у формы
-    const formName = formItem.getAttribute('name')
-
-    // вот тут в объект записываем под именем формы
+    const validator = new FormValidator(options, formItem);
+    const formName = formItem.getAttribute('name');
     formValidators[formName] = validator;
     validator.enableValidation();
   });
-};
+}
 
 enableValidation(options);
-
 
 //==================Редактирование профиля=================
 const popupFormProfileEdit = new PopupWithForm(modalProfile,
@@ -66,7 +57,7 @@ const popupFormProfileEdit = new PopupWithForm(modalProfile,
     popupFormProfileEdit.renderLoading(true);
     api.editInfoProfile(data.name, data.about)
       .then((user) => {
-        userInfo.setUserInfo(user.name, user.about);
+        userInfo.setUserInfo(user);
         popupFormProfileEdit.close();
       })
       .catch((err) => console.error(err))
@@ -81,7 +72,7 @@ const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
     popupFormAvatarEdit.renderLoading(true);
     api.editAvatarProfile(data.link)
       .then((user) => {
-        userInfo.setUserInfo(user.avatar);
+        userInfo.setUserInfo(user);
         popupFormAvatarEdit.close();
       })
       .catch((err) => console.error(err))
@@ -97,7 +88,7 @@ const popupFormNewCard = new PopupWithForm(modalCard,
     popupFormNewCard.renderLoading(true);
     api.addNewCards(data)
       .then((cards) => {
-        cardList.addItem(renderCard(cards));;
+        cardList.addItem(cards);
         popupFormNewCard.close();
       })
       .catch((err) => console.error(err))
@@ -122,10 +113,8 @@ const popupDeleteCard = new PopupDeleteCard(modalDelete,
 Promise.all([api.getInfoProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
     user = userData;
-    userInfo.setUserInfo(user.name, user.about, user.avatar);
-    /* userInfo.addUserAvatar(user.avatar); */
+    userInfo.setUserInfo(user);
     cardList.renderItems(cards);
-
   })
   .catch((err) => {
     console.log(err);
@@ -146,29 +135,21 @@ function handleCardDelete(id, card) {
   popupDeleteCard.open(id, card);
 }
 
-//=====================Валидация========================
-
-/* avatarValidator.enableValidation();
-profileValidator.enableValidation();
-addCardValidator.enableValidation(); */
-
 //==============Слушатели=====================================
 addButton.addEventListener('click', () => {
   popupFormNewCard.open();
-  addCardValidator.resetFormValidation();
+  formValidators['add_pic'].resetFormValidation();
 });
 
 editAvatarButton.addEventListener('click', () => {
   popupFormAvatarEdit.open();
-  avatarValidator.resetFormValidation();
+  formValidators['edit_avatar'].resetFormValidation();
 });
 
 editButton.addEventListener('click', () => {
-  const { name, about } = userInfo.getUserInfo()
-  nameProfile.value = name;
-  profProfile.value = about;
+  popupFormProfileEdit.setInputValues(userInfo.getUserInfo());
   popupFormProfileEdit.open();
-  profileValidator.resetFormValidation();
+  formValidators['edit_profile'].resetFormValidation();
 });
 
 popupFormProfileEdit.setEventListeners();
@@ -176,33 +157,3 @@ popupFormAvatarEdit.setEventListeners();
 popupWithImage.setEventListeners();
 popupFormNewCard.setEventListeners();
 popupDeleteCard.setEventListeners();
-
-
-
-/*Можно лучше
-
-Если будет интересно, можно универсально создать экземпляры валидаторов всех форм, поместив их все в один объект, а потом брать из него валидатор по атрибуту name, который задан для формы. Это очень универсально и для любого кол-ва форм подходит.
-
-const formValidators = {}
-
-// Включение валидации
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(formElement, config)
-// получаем данные из атрибута `name` у формы
-    const formName = formElement.getAttribute('name')
-
-   // вот тут в объект записываем под именем формы
-    formValidators[formName] = validator;
-   validator.enableValidation();
-  });
-};
-
-enableValidation(config);
-И теперь можно использовать валидаторы для деактивации кнопки и тд
-
-formValidators[ profileForm.getAttribute('name') ].resetValidation()
-
-// или можно использовать строку (ведь Вы знаете, какой атрибут `name` у каждой формы)
-formValidators['profile-form'].resetValidation()*/

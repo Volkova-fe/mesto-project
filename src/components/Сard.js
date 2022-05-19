@@ -4,7 +4,7 @@ export default class Card {
     this._selector = selector;
     this._image = card.link;
     this._name = card.name;
-    this._likes = card.likes;;
+    this._likes = card.likes;
 
     this._api = api;
     this._id = card._id;
@@ -44,7 +44,7 @@ export default class Card {
 
     if (this._owner !== this._userID) {
       this._element.querySelector('.card__remove').classList.add('card__remove_hidden');
-    }
+    };
 
     return this._element;
   }
@@ -88,21 +88,3 @@ export default class Card {
     if (likes.some(myLike)) { this.likeButton.classList.add('card__button_state_active') }
   }
 }
-
-/*Чтобы иметь доступ ко всем методам класса в index.js, можно передать this в вызов функции:
-
-        this._likeButton.addEventListener('click', () => {
-            this._handleLike(this);
-        });
-И теперь в index.js в функции можно использовать этот аргумент для вызова методов класса:
-
-function handleLike(card) {
-        api.likeCard(card.getId())
-            .then((res) => {
-                card.updateLikes(res)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-}
-Тоже самое и с удалениями и тд.*/
