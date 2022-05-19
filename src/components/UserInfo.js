@@ -3,7 +3,7 @@ export default class UserInfo {
     this._nameInput = document.querySelector(nameInput);
     this._aboutInput = document.querySelector(aboutInput);
     this._avatarLink = document.querySelector(avatarLink);
-  };
+  }
 
   getUserInfo() {
     return {
@@ -11,14 +11,11 @@ export default class UserInfo {
       about: this._aboutInput.textContent,
       avatarLink: this._avatarLink.src
     }
-  };
+  }
 
-  setUserInfo(name, about) {
-    this._nameInput.textContent = name;
-    this._aboutInput.textContent = about;
-  };
-
-  addUserAvatar(avatar) {
-    this._avatarLink.src = avatar;
-  };
+  setUserInfo(data) {
+    this._nameInput.textContent = data.name;
+    this._aboutInput.textContent = data.about;
+    this._avatarLink.src = data.avatar;
+  }
 }

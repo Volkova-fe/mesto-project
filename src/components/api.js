@@ -5,29 +5,23 @@ export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-  };
+  }
 
-  _responseCheck = res => {
+  _checkResponse = res => {
     if (res.ok) {
       return res.json() // then
     } else {
       return Promise.reject(`Ошибка: code ${res.status}`) // catch
     }
-  };
-
-  _responseCheckWithNoData = res => {
-    if (!res.ok) {
-      return Promise.reject(`Ошибка: code ${res.status}`) // catch
-    }
-  };
+  }
 
   //Получить начальные данные о пользователе
   getInfoProfile = () => {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then(this._responseCheck)
-  };
+      .then(this._checkResponse)
+  }
 
   //Отредактировать данные о пользователе
   editInfoProfile = (name, about) => {
@@ -39,8 +33,8 @@ export default class Api {
       }),
       headers: this._headers,
     })
-      .then(this._responseCheck)
-  };
+      .then(this._checkResponse)
+  }
 
   //Отредактировать аватар пользователя
   editAvatarProfile = (link) => {
@@ -51,16 +45,16 @@ export default class Api {
       }),
       headers: this._headers,
     })
-      .then(this._responseCheck)
-  };
+      .then(this._checkResponse)
+  }
 
   //Получить начальные карточки
   getInitialCards = () => {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     })
-      .then(this._responseCheck)
-  };
+      .then(this._checkResponse)
+  }
 
   //Добавить новую карточку
   addNewCards = (data) => {
@@ -72,8 +66,8 @@ export default class Api {
       }),
       headers: this._headers,
     })
-      .then(this._responseCheck)
-  };
+      .then(this._checkResponse)
+  }
 
   //Удалить карточку
   deleteCard = (cardid) => {
@@ -81,8 +75,8 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(this._responseCheck)
-  };
+      .then(this._checkResponse)
+  }
 
   //Добавить лайка карточке
   addLikeCard = (cardid) => {
@@ -90,8 +84,8 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     })
-      .then(this._responseCheck)
-  };
+      .then(this._checkResponse)
+  }
 
   //удалить лайк карточке
   deleteLikeCard = (cardid) => {
@@ -99,7 +93,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(this._responseCheck)
+      .then(this._checkResponse)
   };
 }
 

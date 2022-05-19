@@ -14,8 +14,7 @@ import PopupDeleteCard from '../components/PopupDeleteCard';
 import {
   addButton, editAvatarButton, editButton,
   modalProfile, modalCard, modalAvatar, modalDelete,
-  nameProfile, profProfile, profileform,
-  avatarForm, modalPic, cardForm, options
+  profileform, avatarForm, modalPic, cardForm, options
 } from "../utils/variables";
 
 //===================================================================
@@ -27,6 +26,7 @@ const userInfo = new UserInfo({
   avatarLink: '.profile__avatar'
 });
 
+
 const cardList = new Section(
   {
     renderer: (item) => renderCard(item),
@@ -36,9 +36,20 @@ const cardList = new Section(
 
 const popupWithImage = new PopupWithImage(modalPic);
 
-const avatarValidator = new FormValidator(options, avatarForm);
-const profileValidator = new FormValidator(options, profileform);
-const addCardValidator = new FormValidator(options, cardForm);
+//==================Валидация=================
+
+const formValidators = {}
+const enableValidation = (options) => {
+  const formList = Array.from(document.querySelectorAll(options.formSelector));
+  formList.forEach((formItem) => {
+    const validator = new FormValidator(options, formItem);
+    const formName = formItem.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+}
+
+enableValidation(options);
 
 //==================Редактирование профиля=================
 const popupFormProfileEdit = new PopupWithForm(modalProfile,
@@ -46,7 +57,7 @@ const popupFormProfileEdit = new PopupWithForm(modalProfile,
     popupFormProfileEdit.renderLoading(true);
     api.editInfoProfile(data.name, data.about)
       .then((user) => {
-        userInfo.setUserInfo(user.name, user.about);
+        userInfo.setUserInfo(user);
         popupFormProfileEdit.close();
       })
       .catch((err) => console.error(err))
@@ -61,7 +72,7 @@ const popupFormAvatarEdit = new PopupWithForm(modalAvatar,
     popupFormAvatarEdit.renderLoading(true);
     api.editAvatarProfile(data.link)
       .then((user) => {
-        userInfo.addUserAvatar(user.avatar);
+        userInfo.setUserInfo(user);
         popupFormAvatarEdit.close();
       })
       .catch((err) => console.error(err))
@@ -77,7 +88,7 @@ const popupFormNewCard = new PopupWithForm(modalCard,
     popupFormNewCard.renderLoading(true);
     api.addNewCards(data)
       .then((cards) => {
-        cardList.addItem(renderCard(cards));;
+        cardList.addItem(cards);
         popupFormNewCard.close();
       })
       .catch((err) => console.error(err))
@@ -102,8 +113,7 @@ const popupDeleteCard = new PopupDeleteCard(modalDelete,
 Promise.all([api.getInfoProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
     user = userData;
-    userInfo.setUserInfo(user.name, user.about);
-    userInfo.addUserAvatar(user.avatar);
+    userInfo.setUserInfo(user);
     cardList.renderItems(cards);
   })
   .catch((err) => {
@@ -112,7 +122,7 @@ Promise.all([api.getInfoProfile(), api.getInitialCards()])
 
 //==================Создание карточек========================
 function renderCard(item) {
-  const newCard = new Card(item, { selector: '#cards__template' }, api, user, handleCardClick,
+  const newCard = new Card({ selector: '#cards__template' }, item, api, user, handleCardClick,
     handleCardDelete).generateCard();
   return newCard;
 }
@@ -125,28 +135,21 @@ function handleCardDelete(id, card) {
   popupDeleteCard.open(id, card);
 }
 
-//=====================Валидация========================
-
-avatarValidator.enableValidation();
-profileValidator.enableValidation();
-addCardValidator.enableValidation();
-
 //==============Слушатели=====================================
 addButton.addEventListener('click', () => {
   popupFormNewCard.open();
-  addCardValidator.resetFormValidation();
+  formValidators['add_pic'].resetFormValidation();
 });
 
 editAvatarButton.addEventListener('click', () => {
   popupFormAvatarEdit.open();
-  avatarValidator.resetFormValidation();
+  formValidators['edit_avatar'].resetFormValidation();
 });
 
 editButton.addEventListener('click', () => {
-  nameProfile.value = userInfo.getUserInfo().name;
-  profProfile.value = userInfo.getUserInfo().about;
+  popupFormProfileEdit.setInputValues(userInfo.getUserInfo());
   popupFormProfileEdit.open();
-  profileValidator.resetFormValidation();
+  formValidators['edit_profile'].resetFormValidation();
 });
 
 popupFormProfileEdit.setEventListeners();

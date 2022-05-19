@@ -1,6 +1,6 @@
 
 export default class Card {
-  constructor(card, selector, api, user, handleCardClick, handleCardDelete) {
+  constructor({selector}, card, api, user, handleCardClick, handleCardDelete) {
     this._selector = selector;
     this._image = card.link;
     this._name = card.name;
@@ -15,11 +15,11 @@ export default class Card {
     this._handleCardClick = handleCardClick;
 
   }
-  
+
   //клонирование темплейта
   _getTemplate() {
     return document
-      .querySelector('#cards__template')
+      .querySelector(this._selector)
       .content.querySelector('.card')
       .cloneNode(true);
   }
@@ -28,6 +28,7 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     const image = this._element.querySelector('.card__pic');
+    this.likeButton = this._element.querySelector('#like_card');
 
     image.src = this._image;
     image.alt = this._name;
@@ -43,7 +44,7 @@ export default class Card {
 
     if (this._owner !== this._userID) {
       this._element.querySelector('.card__remove').classList.add('card__remove_hidden');
-    }
+    };
 
     return this._element;
   }
@@ -51,7 +52,7 @@ export default class Card {
   //слушатели
   _setEventListener() {
     this._element.querySelector('#like_card').addEventListener('click', () => {
-      this._likeSwitch();
+      this._toggleLike();
     });
     this._element.querySelector('.card__pic').addEventListener('click', () => {
       this._handleCardClick(this._name, this._image);
@@ -61,15 +62,14 @@ export default class Card {
     });
   }
   //лайк
-  _likeSwitch() {
-    const likeButton = this._element.querySelector('#like_card');
+  _toggleLike() {
 
-    if (likeButton.classList.contains('card__button_state_active')) {
+    if (this.likeButton.classList.contains('card__button_state_active')) {
       this._api
         .deleteLikeCard(this._id)
         .then((data) => {
           this._likeCounter.textContent = data.likes.length;
-          likeButton.classList.remove('card__button_state_active');
+          this.likeButton.classList.remove('card__button_state_active');
         })
         .catch((err) => console.log(err));
     } else {
@@ -77,16 +77,14 @@ export default class Card {
         .addLikeCard(this._id)
         .then((data) => {
           this._likeCounter.textContent = data.likes.length;
-          likeButton.classList.add('card__button_state_active');
+          this.likeButton.classList.add('card__button_state_active');
         })
         .catch((err) => console.log(err));
     }
   }
 
   _checkLike(likes) {
-    this.likeButton = this._element.querySelector('#like_card');
     const myLike = (element) => element._id === this._userID;
-
     if (likes.some(myLike)) { this.likeButton.classList.add('card__button_state_active') }
   }
 }
