@@ -1,4 +1,7 @@
 ## Проект: Место
+
+<img src="demo/main_mesto.png" width="400">
+
 ___
 ## Обзор
 Адаптивная верстка веб-страниц
@@ -25,3 +28,18 @@ ___
 * [Ссылка на макет в Figma при ошибке валидации](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=1124%3A73)
 * [Ссылка на страницу проекта github](https://volkova-fe.github.io/mesto-project/)
 
+___
+## Локальная установка и запуск
+```
+Клонировать репозиторий
+  git clone git@github.com:Volkova-fe/mesto-project.git
+
+Войти в проект через консоль
+  cd mesto-project
+
+Установить зависимости
+  npm install
+
+Старт сервера
+  npm run dev
+```
